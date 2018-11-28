@@ -15,5 +15,26 @@
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp"></put-attribute>
 	</definition>
 	<!-- LOGIN -->
-	
+	<definition name="login.index.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp"></put-attribute>
+	</definition>
+	<!-- USUARIO -->
+	<definition name="usuario.form.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/usuario/form.jsp"></put-attribute>
+	</definition>
+	<definition name="usuario.list.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/usuario/list.jsp"></put-attribute>
+	</definition>
+	<!-- PRESTADOR -->
+	<definition name="prestador.form.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/prestador/form.jsp"></put-attribute>
+	</definition>
+	<definition name="prestador.list.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/prestador/list.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

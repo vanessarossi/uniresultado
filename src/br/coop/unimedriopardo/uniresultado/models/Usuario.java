@@ -1,20 +1,20 @@
 package br.coop.unimedriopardo.uniresultado.models;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name = "usuario")
@@ -22,19 +22,19 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotBlank
-	@Length(min = 3, max = 150)
-	@Column(name = "nome", length = 150, nullable = false)
-	private String nome;
+	private Integer id;
 
 	@NotBlank
 	@Length(min = 3, max = 100)
-	@Column(name = "login", length = 100, nullable = false)
+	@Column(name = "nome", length = 100, nullable = false)
+	private String nome;
+
+	@NotBlank
+	@Length(min = 3, max = 50)
+	@Column(name = "login", length = 50, nullable = false)
 	private String login;
 
-	@Column(name = "senha", length = 50)
+	@Column(name = "senha", length = 150)
 	private String senha;
 
 	@Email
@@ -44,21 +44,20 @@ public class Usuario {
 	@NotNull
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
+	
+	@NotBlank
+	@Column(name = "perfil", length = 100, nullable = false)
+	private String perfil;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_usuario"))
+	private Prestador prestador;
 
-	@DateTimeFormat(style = "dd/MM/yyyy")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ultimo_acesso", columnDefinition = "DATETIME")
-	private Date ultimoAcesso;
-
-	@NotNull
-	@Column(name = "forcar_alterar_senha", nullable = false)
-	private Boolean forcarAlterarSenha;
-
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -102,22 +101,21 @@ public class Usuario {
 		this.ativo = ativo;
 	}
 
-	public Date getUltimoAcesso() {
-		return ultimoAcesso;
+	public String getPerfil() {
+		return perfil;
 	}
 
-	public void setUltimoAcesso(Date ultimoAcesso) {
-		this.ultimoAcesso = ultimoAcesso;
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 
-	public Boolean getForcarAlterarSenha() {
-		return forcarAlterarSenha;
+	public Prestador getPrestador() {
+		return prestador;
 	}
 
-	public void setForcarAlterarSenha(Boolean forcarAlterarSenha) {
-		this.forcarAlterarSenha = forcarAlterarSenha;
+	public void setPrestador(Prestador prestador) {
+		this.prestador = prestador;
 	}
 
 	
-
 }

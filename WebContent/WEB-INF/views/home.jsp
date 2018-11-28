@@ -2,5 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<h1>HOME DO SISTEMA</h1>
-<h2>home</h2>
+<section class="text-center">
+	<h1 class="display-3">UniResultado</h1>
+	<p class="lead">Sistema para integração do resultado/laudo com o prontuário eletrônico Unimed</p>
+	<p class="lead">Bem vindo, nomePessoa !</p>
+</section>
+<section>
+	<a href="/uniresultado/prestador/listagem">Cadastro de Prestador</a>
+	<a href="/uniresultado/usuario/listagem">Cadastro de Usuário</a>
+	<a href="">Cadastro de Resultado/Laudo</a>
+	<a href="">Envio de Resultado/Laudo</a>
+	<a href="">Conferência de importação do Resultado/Laudo</a>
+	<a href="">Log de Envio</a>
+</section>

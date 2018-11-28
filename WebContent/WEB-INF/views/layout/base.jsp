@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,7 +12,7 @@
 <spring:url value="/resources/css/principal.css" var="principalCSS"></spring:url>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>UniSup - <tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute> </title>
+<title>UniResultado - <tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute> </title>
 
 <script type="text/javascript" src="${jqueryJS}"></script>
 <link href="${normalizeCSS}" rel="stylesheet">
@@ -27,7 +26,7 @@
 		<tiles:insertAttribute name="header" ignore="false"></tiles:insertAttribute>
 	</div>
 	<div class="container-fluid">
-			<tiles:insertAttribute name="body" ignore="false"></tiles:insertAttribute>
+		<tiles:insertAttribute name="body" ignore="false"></tiles:insertAttribute>
 	</div>
 </body>
 </html>
