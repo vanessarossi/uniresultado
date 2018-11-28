@@ -10,7 +10,7 @@
 <section>
 	<a href="/uniresultado/prestador/listagem">Cadastro de Prestador</a>
 	<a href="/uniresultado/usuario/listagem">Cadastro de Usuário</a>
-	<a href="">Cadastro de Resultado/Laudo</a>
+	<a href="/uniresultado/resultado/formulario">Cadastro de Resultado/Laudo</a>
 	<a href="">Envio de Resultado/Laudo</a>
 	<a href="">Conferência de importação do Resultado/Laudo</a>
 	<a href="">Log de Envio</a>
