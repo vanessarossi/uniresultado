@@ -54,7 +54,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show.sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
@@ -63,4 +63,8 @@
 	</bean>
 
 	<jpa:repositories base-package="br.coop.unimedriopardo.uniresultado.repositories"></jpa:repositories>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10000000"/>
+	</bean>
 </beans>

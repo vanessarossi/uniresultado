@@ -11,7 +11,7 @@
 	<a href="/uniresultado/prestador/listagem">Cadastro de Prestador</a>
 	<a href="/uniresultado/usuario/listagem">Cadastro de Usuário</a>
 	<a href="/uniresultado/resultado/formulario">Cadastro de Resultado/Laudo</a>
-	<a href="">Envio de Resultado/Laudo</a>
-	<a href="">Conferência de importação do Resultado/Laudo</a>
-	<a href="">Log de Envio</a>
+	<a href="/uniresultado/resultado/envio">Envio de Resultado/Laudo para o prontuário</a>
+	<a href="/uniresultado/resultado/conferencia">Conferência de importação do Resultado/Laudo</a>
+	<a href="/uniresultado/logEnvio/listagem">Log de Envio</a>
 </section>

@@ -37,13 +37,17 @@
 		<put-attribute name="title" value="Login"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/prestador/list.jsp"></put-attribute>
 	</definition>
-	<!-- PRESTADOR -->
+	<!-- RESULTADO -->
 	<definition name="resultado.form.tiles" extends="layout.tiles">
 		<put-attribute name="title" value="Login"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/resultado/form.jsp"></put-attribute>
 	</definition>
-	<definition name="resultado.list.tiles" extends="layout.tiles">
+	<definition name="resultado.conferencia.tiles" extends="layout.tiles">
 		<put-attribute name="title" value="Login"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/resultado/list.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/resultado/conferencia.jsp"></put-attribute>
+	</definition>
+	<definition name="resultado.formEnvio.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Login"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/resultado/formEnvio.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

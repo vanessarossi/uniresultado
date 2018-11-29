@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -43,10 +44,9 @@ public class Resultado {
 	@Column(name = "formato_arquivo", length = 10, nullable = false)
 	private String formatoArquivo;
 	
-	@NotBlank
-	@Length(min = 1, max =  16777215)
-	@Column(name = "anexo", length = 16777215, nullable = false)
-	private String anexo;
+	
+	@Column(name = "anexo", nullable=true)
+	private byte[] anexo;
 	
 	@NotBlank
 	@Length(min = 1, max = 1)
@@ -99,11 +99,11 @@ public class Resultado {
 		this.formatoArquivo = formatoArquivo;
 	}
 
-	public String getAnexo() {
+	public byte[] getAnexo() {
 		return anexo;
 	}
 
-	public void setAnexo(String anexo) {
+	public void setAnexo(byte[] anexo) {
 		this.anexo = anexo;
 	}
 
