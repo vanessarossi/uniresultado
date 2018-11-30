@@ -20,7 +20,7 @@ public class Exame {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@NotBlank
 	@Length(min = 1, max = 5)
@@ -41,11 +41,11 @@ public class Exame {
 	@JoinColumn(name = "resultado_id", foreignKey = @ForeignKey(name = "Fk_resultado_exame"))
 	private Resultado resultado;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -80,5 +80,7 @@ public class Exame {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
+
+	
 
 }

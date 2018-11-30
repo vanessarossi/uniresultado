@@ -1,10 +1,13 @@
 package br.coop.unimedriopardo.uniresultado.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,13 +35,13 @@ public class ResultadoController {
 	
 	@RequestMapping("/conferencia")
 	public String conferencia(Model model) {
-		model.addAttribute("resultado", new Resultado());
+		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador());
 		return "resultado.conferencia.tiles";
 	}
 	
 	@RequestMapping("/envio")
 	public String envio(Model model) {
-		model.addAttribute("resultado", new Resultado());
+		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador());
 		return "resultado.formEnvio.tiles";
 	}
 	
@@ -50,6 +53,24 @@ public class ResultadoController {
 		}
 		resultadoService.salvar(resultado, arquivo);
 		return "redirect:/resultado/conferencia";
+	}
+	
+	@RequestMapping(value = "/cancelar/{id}", method = RequestMethod.GET)
+	public String excluir(@ModelAttribute("id") Integer id, Model model) {
+		resultadoService.cancelar(id);
+		return "redirect:/resultado/conferencia";
+	}
+	
+	@RequestMapping(value = "/enviar/selecionados", method = RequestMethod.POST)
+	public String salvar(List<Resultado> resultados ,RedirectAttributes redirect) {
+		resultadoService.enviarExamesSelecionados(resultados);
+		return "redirect:/logEnvio/listagem";
+	}
+	
+	@RequestMapping(value = "/enviar/todos", method = RequestMethod.GET)
+	public String salvar(RedirectAttributes redirect) {
+		resultadoService.enviarExamesPendente();
+		return "redirect:/logEnvio/listagem";
 	}
 	
 }

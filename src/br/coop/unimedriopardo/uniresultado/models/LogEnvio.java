@@ -26,7 +26,7 @@ public class LogEnvio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	
 	@DateTimeFormat(style = "dd/MM/yyyy hh:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -42,11 +42,11 @@ public class LogEnvio {
 	@JoinColumn(name = "resultado_id", foreignKey = @ForeignKey(name = "Fk_resultado_log_exame"))
 	private Resultado resultado;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -73,5 +73,7 @@ public class LogEnvio {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
+
+	
 
 }
