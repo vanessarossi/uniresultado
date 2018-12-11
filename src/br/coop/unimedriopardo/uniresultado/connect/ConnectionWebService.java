@@ -1,28 +1,25 @@
 package br.coop.unimedriopardo.uniresultado.connect;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
-import java.util.Scanner;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.mysql.cj.x.json.JsonArray;
-
 import br.coop.unimedriopardo.uniresultado.models.Exame;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.util.ConversorData;
+import jdk.nashorn.internal.parser.JSONParser;
+
 
 public class ConnectionWebService {
 
@@ -48,9 +45,20 @@ public class ConnectionWebService {
 		}
 		connection.connect();
 		
-		String resposta = new Scanner(connection.getInputStream()).next();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+		StringBuilder stringBuilder = new StringBuilder();
+		String output;
+		while ((output = bufferedReader.readLine()) != null) {
+		  stringBuilder.append(output);
+		}
 		
-		System.out.println(resposta);
+		stringBuilder.toString();
+		
+		String motivo = "";
+	    String nrProtocolo = "";
+	    String status = "";
+		
+		System.out.println(stringBuilder.toString());
 	}
 
 	public String montarJson(Resultado resultado) throws JSONException {
