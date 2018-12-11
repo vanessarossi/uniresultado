@@ -55,31 +55,27 @@ public class ConnectionWebService {
 		JSONObject message = new JSONObject();
 		JSONObject header = new JSONObject();
 		JSONObject body = new JSONObject();
-		JSONArray registros = new JSONArray();
-		JSONArray exames = new JSONArray();
+		JSONObject registros = new JSONObject();
+		JSONObject exames = new JSONObject();
 		
 		header.put("operadoraOrigem", "354619");
 		header.put("prestadorOrigem", resultado.getPrestador().getPrestadorOrigem());
 		header.put("sistemaOrigem", resultado.getPrestador().getSistemaPrestador());
 		header.put("dataHora", LocalDateTime.now());
 		
-		
 		for (Exame exame : resultado.getExames()) {
-			exames.put(exame.getCodigoTabela());
-			exames.put(exame.getCodigoExame());
-			exames.put(exame.getQtde());
+			exames.put("codigoTabela",exame.getCodigoTabela());
+			exames.put("codigoExame",exame.getCodigoExame());
+			exames.put("qtde",exame.getQtde());
 		}
 		
-		registros 
-		(resultado.getTipoOperacao());
-		registros.put( resultado.getNrCartaoBeneficiario());
-		registros.put( resultado.getNrExecucaoOperadora());
-		registros.put(resultado.getFormatoArquivo());
-		registros.put(exames);
-		registros.put(resultado.getFormatoArquivo());
-		registros.put(resultado.getAnexo());
+		registros.put("tipoOperacao",resultado.getTipoOperacao());
+		registros.put("nrCartaoBeneficiario",resultado.getNrCartaoBeneficiario());
+		registros.put("nrExecucaoOperadora",resultado.getNrExecucaoOperadora());
+		registros.put("exames",exames);
+		registros.put("formatoArquivo",resultado.getFormatoArquivo());
+		registros.put("anexo",resultado.getAnexo());
 		
-		registros.put(exames);
 		body.put("registros",registros);
 		message.put("header",header);
 		message.put("body",body);
