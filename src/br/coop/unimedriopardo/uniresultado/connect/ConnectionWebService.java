@@ -4,10 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Scanner;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -34,17 +37,17 @@ public class ConnectionWebService {
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
 		
-		OutputStream os = connection.getOutputStream();
+		PrintStream printStream = new PrintStream(connection.getOutputStream());
 		try {
-			os.write(montarJson(resultado).getBytes());
+			printStream.println(montarJson(resultado));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		os.close();
-		//resposta
-		InputStream content = new BufferedInputStream(connection.getInputStream());
-		String r = IOUtils.toString(content);
-				
+		connection.connect();
+		
+		String resposta = new Scanner(connection.getInputStream()).next();
+		
+		System.out.println(resposta);
 	}
 
 	public String montarJson(Resultado resultado) throws JSONException {
@@ -52,35 +55,37 @@ public class ConnectionWebService {
 		JSONObject message = new JSONObject();
 		JSONObject header = new JSONObject();
 		JSONObject body = new JSONObject();
-		JSONObject registros = new JSONObject();
+		JSONArray registros = new JSONArray();
 		JSONArray exames = new JSONArray();
 		
 		header.put("operadoraOrigem", "354619");
 		header.put("prestadorOrigem", resultado.getPrestador().getPrestadorOrigem());
 		header.put("sistemaOrigem", resultado.getPrestador().getSistemaPrestador());
-		header.put("dataHora", new Date());
-
-		registros.put("tipoOperacao", resultado.getTipoOperacao());
-		registros.put("nrCartaoBeneficiario", resultado.getNrCartaoBeneficiario());
-		registros.put("nrExecucaoOperadora", resultado.getNrExecucaoOperadora());	
+		header.put("dataHora", LocalDateTime.now());
 		
-
+		
 		for (Exame exame : resultado.getExames()) {
-			JSONObject exameJson = new JSONObject();
-			exameJson.put("codigoTabela", exame.getCodigoTabela());
-			exameJson.put("codigoExame", exame.getCodigoExame());
-			exameJson.put("qtde",exame.getQtde());
-			exames.put(exameJson);
+			exames.put(exame.getCodigoTabela());
+			exames.put(exame.getCodigoExame());
+			exames.put(exame.getQtde());
 		}
 		
-		registros.put("exames",exames);
-		registros.put("anexo", resultado.getAnexo());
-		registros.put("formatoArquivo", resultado.getFormatoArquivo());
-		body.put("registros", registros);
-		message.put("header", header);
-		message.put("body", body);
+		registros 
+		(resultado.getTipoOperacao());
+		registros.put( resultado.getNrCartaoBeneficiario());
+		registros.put( resultado.getNrExecucaoOperadora());
+		registros.put(resultado.getFormatoArquivo());
+		registros.put(exames);
+		registros.put(resultado.getFormatoArquivo());
+		registros.put(resultado.getAnexo());
+		
+		registros.put(exames);
+		body.put("registros",registros);
+		message.put("header",header);
+		message.put("body",body);
 		json.put("message",message);
 		
+		System.out.println(json.toString());
 		return json.toString();
 	}
 }

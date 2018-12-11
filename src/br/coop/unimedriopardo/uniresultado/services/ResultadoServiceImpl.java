@@ -89,14 +89,12 @@ public class ResultadoServiceImpl implements ResultadoService {
 		ConnectionWebService webService = new ConnectionWebService();
 		
 		for (Resultado resultado : resultadosPendente) {
-		
-				try {
-					webService.enviar(new Usuario(),resultado);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
+			try {
+				webService.enviar(new Usuario(), resultado);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
