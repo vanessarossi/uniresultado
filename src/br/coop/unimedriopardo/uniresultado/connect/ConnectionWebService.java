@@ -17,9 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mysql.cj.x.json.JsonArray;
+
 import br.coop.unimedriopardo.uniresultado.models.Exame;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
+import br.coop.unimedriopardo.uniresultado.util.ConversorData;
 
 public class ConnectionWebService {
 
@@ -51,30 +54,35 @@ public class ConnectionWebService {
 	}
 
 	public String montarJson(Resultado resultado) throws JSONException {
-		JSONObject json = new JSONObject();
-		JSONObject message = new JSONObject();
 		JSONObject header = new JSONObject();
-		JSONObject body = new JSONObject();
-		JSONObject registros = new JSONObject();
-		JSONObject exames = new JSONObject();
-		
 		header.put("operadoraOrigem", "354619");
 		header.put("prestadorOrigem", resultado.getPrestador().getPrestadorOrigem());
 		header.put("sistemaOrigem", resultado.getPrestador().getSistemaPrestador());
-		header.put("dataHora", LocalDateTime.now());
+		header.put("dataHora","2018-12-11 18:00:00");
 		
+		JSONArray exames = new JSONArray();
 		for (Exame exame : resultado.getExames()) {
-			exames.put("codigoTabela",exame.getCodigoTabela());
-			exames.put("codigoExame",exame.getCodigoExame());
-			exames.put("qtde",exame.getQtde());
+			JSONObject exameJson = new JSONObject();
+			exameJson.put("codigoTabela",exame.getCodigoTabela());
+			exameJson.put("codigoExame",exame.getCodigoExame());
+			exameJson.put("qtde",exame.getQtde());
+			exames.put(exameJson);
 		}
 		
-		registros.put("tipoOperacao",resultado.getTipoOperacao());
-		registros.put("nrCartaoBeneficiario",resultado.getNrCartaoBeneficiario());
-		registros.put("nrExecucaoOperadora",resultado.getNrExecucaoOperadora());
-		registros.put("exames",exames);
-		registros.put("formatoArquivo",resultado.getFormatoArquivo());
-		registros.put("anexo",resultado.getAnexo());
+		JSONObject registro = new JSONObject();
+		registro.put("tipoOperacao",resultado.getTipoOperacao());
+		registro.put("nrCartaoBeneficiario",resultado.getNrCartaoBeneficiario());
+		registro.put("nrExecucaoOperadora",resultado.getNrExecucaoOperadora());
+		registro.put("exames",exames);
+		registro.put("formatoArquivo",resultado.getFormatoArquivo());
+		registro.put("anexo",resultado.getAnexo());
+		
+		JSONArray registros = new JSONArray();
+		registros.put(registro);
+
+		JSONObject json = new JSONObject();
+		JSONObject message = new JSONObject();
+		JSONObject body = new JSONObject();
 		
 		body.put("registros",registros);
 		message.put("header",header);
