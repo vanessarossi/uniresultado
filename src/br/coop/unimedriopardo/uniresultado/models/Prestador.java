@@ -56,7 +56,7 @@ public class Prestador {
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Usuario> usuarios;
 	
-	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Resultado> resultados;
 
 	public Integer getId() {

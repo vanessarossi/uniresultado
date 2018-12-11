@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.uniresultado.connect.ConnectionWebService;
 import br.coop.unimedriopardo.uniresultado.models.Exame;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
+import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioPrestador;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioResultado;
@@ -65,7 +66,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 	@Override
 	public List<Resultado> listarPendentePorPrestador() {
 		// prestador ainda com gambiarra apenas para teste
-		return repositorioResultado.findByPrestador_idAndStatus(1,"P");
+		return repositorioResultado.findByPrestador_idAndStatus(2,"P");
 	}
 
 	@Override
@@ -84,16 +85,18 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public void enviarExamesPendente() {
-		List<Resultado> resultadosPendente = repositorioResultado.findByPrestador_idAndStatus(1, "P");
+		List<Resultado> resultadosPendente = repositorioResultado.findByPrestador_idAndStatus(2, "P");
 		ConnectionWebService webService = new ConnectionWebService();
 		
 		for (Resultado resultado : resultadosPendente) {
-			try {
-				webService.montarJson(resultado);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
+				try {
+					webService.enviar(new Usuario(),resultado);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 		}
 		
 		
