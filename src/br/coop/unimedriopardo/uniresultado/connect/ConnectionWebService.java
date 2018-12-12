@@ -92,11 +92,22 @@ public class ConnectionWebService {
 			stringBuilder.append(output);
 		}
 		JSONObject resposta;
-		boolean status;
+		boolean status01;
+		boolean status02 = false;
 		resposta = new JSONObject(stringBuilder.toString());
-		status = (boolean) resposta.get("status");
+		status01 = (boolean) resposta.get("status");
+		
+		if (status01) {
+			JSONArray retornoOperacao = (JSONArray) resposta.get("retorno_operacao");
+			JSONObject statusRetornoOperacao =  (JSONObject) retornoOperacao.get(0);
+			status02 = (boolean) statusRetornoOperacao.get("status");
+			return status02;
+		}else {
+			return status01;
+		}
+		
 		//motivo = resposta.get("motivo").toString();
-		return status;
+		
 	}
 
 }

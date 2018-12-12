@@ -100,7 +100,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 					repositorioResultado.save(resultado);
 					logEnvio.setStatus("E");
 				}else {
-					resultado.setStatus("ER");
+					resultado.setStatus("P");
 					repositorioResultado.save(resultado);
 					logEnvio.setStatus("ER");
 				}

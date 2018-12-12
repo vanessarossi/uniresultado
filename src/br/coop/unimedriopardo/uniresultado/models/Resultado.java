@@ -56,7 +56,7 @@ public class Resultado {
 	private String anexo;
 	
 	@NotBlank
-	@Length(min = 1, max = 1)
+	@Length(min = 1, max = 2)
 	@Column(name = "status", length = 1, nullable = false)
 	private String status;
 	
