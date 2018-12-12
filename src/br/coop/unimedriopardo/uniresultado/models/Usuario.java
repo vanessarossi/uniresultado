@@ -19,7 +19,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -48,15 +47,15 @@ public class Usuario {
 	@NotNull
 	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
-	
+
 	@NotBlank
 	@Column(name = "perfil", length = 100, nullable = false)
 	private String perfil;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_usuario"))
 	private Prestador prestador;
-	
+
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<LogEnvio> logsEnvio;
 
@@ -124,5 +123,4 @@ public class Usuario {
 		this.prestador = prestador;
 	}
 
-	
 }

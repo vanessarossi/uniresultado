@@ -10,5 +10,6 @@ public interface UsuarioService {
 	public List<Usuario> listagemOrdenada();
 	public Usuario pesquisaPorId(Integer id);
 	public void deletar(Integer id);
+	public Usuario pesquisaPorLogin(String login);
 
 }

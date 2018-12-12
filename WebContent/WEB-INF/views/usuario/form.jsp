@@ -48,6 +48,8 @@
 			<label>Perfil</label>
 			<form:select path="perfil" cssClass="form-control form-control-sm">
 				<form:option value="">SELECIONE</form:option>
+				<form:option value="ROLE_ADMIN">ADMINISTRADOR</form:option>
+				<form:option value="ROLE_USER">PRESTADOR</form:option>
 			</form:select>
 			<form:errors path="perfil" />
 		</div>

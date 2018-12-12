@@ -12,8 +12,8 @@ public class HomeController {
 		return "home.index.tiles";
 	}
 	
-	@RequestMapping("login")
+	@RequestMapping("identificacao")
 	public String login() {
-		return "home.index.tiles";
+		return "login.index.tiles";
 	}
 }

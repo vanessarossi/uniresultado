@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +16,9 @@
 				http://www.springframework.org/schema/mvc
 				http://www.springframework.org/schema/mvc/spring-mvc.xsd
 				http://www.springframework.org/schema/data/jpa
-				http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+				http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+				http://www.springframework.org/schema/security
+				http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 	<mvc:annotation-driven/>
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
 	<context:annotation-config/>
@@ -63,6 +66,31 @@
 	</bean>
 
 	<jpa:repositories base-package="br.coop.unimedriopardo.uniresultado.repositories"></jpa:repositories>
+	
+	<!-- Spring Security -->
+	<bean id="userDetailsService" 
+		class="br.coop.unimedriopardo.uniresultado.security.UniResultadoUserDetailsService"></bean>
+	<sec:http pattern="/resources/**" security="none"></sec:http>
+	<sec:http pattern="/identificacao" security="none"></sec:http>
+	<sec:http use-expressions="true" auto-config="true">
+	<sec:intercept-url pattern="/usuario/**" access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/prestador/**" access="hasRole('ROLE_ADMIN')"/>
+    <sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<sec:form-login
+			login-page="/identificacao"
+			default-target-url="/home"
+			authentication-failure-url="/identificacao"
+			username-parameter="login"
+			password-parameter="senha"
+		/>
+		<sec:logout logout-success-url="/identificacao" invalidate-session="true"/>
+		<sec:csrf disabled="true" />
+	</sec:http>
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="userDetailsService">
+			<sec:password-encoder hash="bcrypt"></sec:password-encoder>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     	<property name="maxUploadSize" value="10000000"/>

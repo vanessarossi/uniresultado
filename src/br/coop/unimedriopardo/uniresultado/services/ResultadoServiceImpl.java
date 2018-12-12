@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.uniresultado.connect.ConnectionWebService;
 import br.coop.unimedriopardo.uniresultado.models.Exame;
-import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
@@ -65,9 +64,8 @@ public class ResultadoServiceImpl implements ResultadoService {
 	}
 
 	@Override
-	public List<Resultado> listarPendentePorPrestador() {
-		// prestador ainda com gambiarra apenas para teste
-		return repositorioResultado.findByPrestador_idAndStatus(1,"P");
+	public List<Resultado> listarPendentePorPrestador(Usuario usuarioLogado) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"P");
 	}
 
 	@Override
@@ -80,18 +78,16 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public void enviarExamesSelecionados(List<Resultado> resultados) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void enviarExamesPendente() {
-		List<Resultado> resultadosPendente = repositorioResultado.findByPrestador_idAndStatus(1, "P");
+	public void enviarExamesPendente(Usuario usuarioLogado) {
+		List<Resultado> resultadosPendente = repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "P");
 		ConnectionWebService webService = new ConnectionWebService();
 		
 		for (Resultado resultado : resultadosPendente) {
 			try {
-				boolean statusEnvio = webService.enviar(new Usuario(), resultado);
+				boolean statusEnvio = webService.enviar(usuarioLogado, resultado);
 				if (statusEnvio) {
 					resultado.setStatus("E");
 					repositorioResultado.save(resultado);

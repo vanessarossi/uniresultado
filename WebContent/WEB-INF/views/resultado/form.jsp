@@ -96,7 +96,7 @@
 	</section>
 	<button type="submit" class="btn  btn-outline-success">Salvar</button>
 	<button type="reset" class="btn  btn-outline-warning">Limpar</button>
-	<a href="/uniresultado/prestador/listagem" class="btn  btn-outline-danger">Cancelar</a>
+	<a href="/uniresultado/resultado/conferencia" class="btn  btn-outline-danger">Cancelar</a>
 	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 	<br>
 </form:form>

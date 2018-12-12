@@ -1,5 +1,6 @@
 package br.coop.unimedriopardo.uniresultado.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
+import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.services.ResultadoService;
+import br.coop.unimedriopardo.uniresultado.services.UsuarioService;
 
 
 @Controller
@@ -21,10 +24,12 @@ import br.coop.unimedriopardo.uniresultado.services.ResultadoService;
 public class ResultadoController {
 	
 	private final ResultadoService resultadoService;
+	private final UsuarioService usuarioService;
 
 	@Autowired
-	public ResultadoController(ResultadoService resultadoService) {
+	public ResultadoController(ResultadoService resultadoService, UsuarioService usuarioService) {
 		this.resultadoService = resultadoService;
+		this.usuarioService = usuarioService;
 	}
 	
 	@RequestMapping("/formulario")
@@ -34,14 +39,16 @@ public class ResultadoController {
 	}
 	
 	@RequestMapping("/conferencia")
-	public String conferencia(Model model) {
-		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador());
+	public String conferencia(Model model, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador(usuarioLogado));
 		return "resultado.conferencia.tiles";
 	}
 	
 	@RequestMapping("/envio")
-	public String envio(Model model) {
-		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador());
+	public String envio(Model model, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador(usuarioLogado));
 		return "resultado.formEnvio.tiles";
 	}
 	
@@ -68,8 +75,9 @@ public class ResultadoController {
 	}
 	
 	@RequestMapping(value = "/enviar/todos", method = RequestMethod.GET)
-	public String salvar(RedirectAttributes redirect) {
-		resultadoService.enviarExamesPendente();
+	public String salvar(RedirectAttributes redirect, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		resultadoService.enviarExamesPendente(usuarioLogado);
 		return "redirect:/logEnvio/listagem";
 	}
 	
