@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.uniresultado.connect.ConnectionWebService;
 import br.coop.unimedriopardo.uniresultado.models.Exame;
+import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
@@ -84,20 +85,30 @@ public class ResultadoServiceImpl implements ResultadoService {
 	public void enviarExamesPendente(Usuario usuarioLogado) {
 		List<Resultado> resultadosPendente = repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "P");
 		ConnectionWebService webService = new ConnectionWebService();
-		
 		for (Resultado resultado : resultadosPendente) {
+			
+			LogEnvio logEnvio = new LogEnvio();
+			logEnvio.setData(new Date());
+			logEnvio.setPrestador(usuarioLogado.getPrestador());
+			logEnvio.setResultado(resultado);
+			logEnvio.setUsuario(usuarioLogado);
+			
 			try {
 				boolean statusEnvio = webService.enviar(usuarioLogado, resultado);
 				if (statusEnvio) {
 					resultado.setStatus("E");
 					repositorioResultado.save(resultado);
+					logEnvio.setStatus("E");
 				}else {
 					resultado.setStatus("ER");
-					repositorioResultado.save(resultado);	
+					repositorioResultado.save(resultado);
+					logEnvio.setStatus("ER");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			repositorioLogEnvio.save(logEnvio);
 		}
 	}
 }

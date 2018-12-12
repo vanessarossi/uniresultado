@@ -50,4 +50,9 @@
 		<put-attribute name="title" value="Envio de Resultado"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/resultado/formEnvio.jsp"></put-attribute>
 	</definition>
+	<!-- Log Envio -->
+		<definition name="logEnvio.list.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Listagem de Log de Envio"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/logEnvio/index.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

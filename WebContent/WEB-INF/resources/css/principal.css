@@ -14,5 +14,11 @@
 .bg-pantone{background-color: #5B5C65 !important;}
 .bg-pantone731c{background-color: #682D00 !important;}
 
-.btn-patone348{color:#fff;background-color:#00995D;border-color:#00995D}
-.btn-patone348:hover{color:#fff;background-color:#00995F;border-color:#00995F}
+/** card cores unimed **/
+.card-pantone348c{border-color: #00995D !important; color: #00995D !important;}
+.card-pantone381c{border-color: #B1D34B !important; color: #B1D34B !important;}
+.card-pantone192c{border-color: #ED1651 !important; color: #ED1651 !important;}
+.card-pantone428c{border-color: #C4CBCF !important; color: #C4CBCF !important;}
+.card-pantone357c{border-color: #00401A !important; color: #00401A !important;}
+.card-pantone2627c{border-color: #411564 !important; color: #411564 !important;}
+.card-pantone{border-color: #5B5C65 !important; color: #5B5C65 !important;}

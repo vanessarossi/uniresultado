@@ -43,6 +43,10 @@ public class LogEnvio {
 	private Usuario usuario;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_log_exame"))
+	private Prestador prestador;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "resultado_id", foreignKey = @ForeignKey(name = "Fk_resultado_log_exame"))
 	private Resultado resultado;
 
@@ -78,6 +82,14 @@ public class LogEnvio {
 		this.usuario = usuario;
 	}
 
+	public Prestador getPrestador() {
+		return prestador;
+	}
+
+	public void setPrestador(Prestador prestador) {
+		this.prestador = prestador;
+	}
+
 	public Resultado getResultado() {
 		return resultado;
 	}
@@ -85,4 +97,5 @@ public class LogEnvio {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
+
 }
