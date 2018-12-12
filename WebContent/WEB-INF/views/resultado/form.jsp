@@ -50,6 +50,7 @@
 					<form:option value="P">PENDENTE</form:option>
 					<form:option value="C">CANCELADO</form:option>
 					<form:option value="E">ENVIADO</form:option>
+					<form:option value="ER">ENVIADO COM ERRO</form:option>
 				</form:select>
 				<form:errors path="status" />
 			</div>
