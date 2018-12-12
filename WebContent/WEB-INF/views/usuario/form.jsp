@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<br>
-<h3 class="text-center">Cadastro de Usuário</h3>
-<hr>
+<section class="text-center" id="titulo">
+	<h1 class="h1">Cadastro de Usuário</h1>
+</section>
 <form:form action="/uniresultado/usuario/salvar" method="post" modelAttribute="usuario">
 	<div class="form-row">
 		<div class="form-group col-md-2">
@@ -56,8 +56,6 @@
 	</div>
 	<form:hidden path="id" />
 	<button type="submit" class="btn  btn-outline-success">Salvar</button>
-	<button type="reset" class="btn  btn-outline-warning">Limpar</button>
-	<a href="/uniresultado/usuario/listagem" class="btn  btn-outline-danger">Cancelar</a>
 	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 	<br>
 </form:form>

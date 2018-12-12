@@ -3,9 +3,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<section class="text-center" id="titulo">
+	<h1 class="h1">Cadastro do Resultado / Laudo</h1>
+</section>
 <br>
-<h3 class="text-center">Cadastro do Resultado / Laudo</h3>
-<hr>
 <form:form action="/uniresultado/resultado/salvar" method="post" modelAttribute="resultado" enctype="multipart/form-data">
 	<section>
 		<div class="form-row">

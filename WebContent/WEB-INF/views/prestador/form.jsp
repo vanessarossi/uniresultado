@@ -2,9 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<section class="text-center" id="titulo">
+	<h1 class="h1">Listagem do Prestador</h1>
+</section>
 <br>
-<h3 class="text-center">Cadastro do Prestador</h3>
-<hr>
 <form:form action="/uniresultado/prestador/salvar" method="post" modelAttribute="prestador">
 	<div class="form-row">
 		<div class="form-group col-md-4">
@@ -42,8 +43,6 @@
 	</div>
 	<form:hidden path="id" />
 	<button type="submit" class="btn  btn-outline-success">Salvar</button>
-	<button type="reset" class="btn  btn-outline-warning">Limpar</button>
-	<a href="/uniresultado/prestador/listagem" class="btn  btn-outline-danger">Cancelar</a>
 	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 	<br>
 </form:form>

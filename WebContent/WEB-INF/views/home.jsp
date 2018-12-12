@@ -13,27 +13,29 @@
 </section>
 
 <section id="menu">
-	<div class="row card-columns justify-content-center">
-		<div class="col-11 col-sm-11 col-md-4 col-lg-4 col-xl-4">
-			<a href="/uniresultado/prestador/listagem">
-				<div class="card text-center card-pantone" id="prestador">
-					<i class="fas fa-building fa-5x"></i>
-					<div class="card-body">
-						<h5 class="card-title">Cadastro de Prestador</h5>
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<div class="row card-columns justify-content-center">
+			<div class="col-11 col-sm-11 col-md-4 col-lg-4 col-xl-4">
+				<a href="/uniresultado/prestador/listagem">
+					<div class="card text-center card-pantone" id="prestador">
+						<i class="fas fa-building fa-5x"></i>
+						<div class="card-body">
+							<h5 class="card-title">Cadastro de Prestador</h5>
+						</div>
 					</div>
-				</div>
-			</a>		</div>
-		<div class=" col-11 col-sm-11 col-md-4 col-lg-4 col-xl-4">
-			<a href="/uniresultado/usuario/listagem">
-				<div class="card text-center card-pantone428c" id="usuario">
-					<i class="fas fa-user fa-5x"></i>
-					<div class="card-body">
-						<h5 class="card-title">Cadastro de Usuário</h5>
+				</a>		</div>
+			<div class=" col-11 col-sm-11 col-md-4 col-lg-4 col-xl-4">
+				<a href="/uniresultado/usuario/listagem">
+					<div class="card text-center card-pantone428c" id="usuario">
+						<i class="fas fa-user fa-5x"></i>
+						<div class="card-body">
+							<h5 class="card-title">Cadastro de Usuário</h5>
+						</div>
 					</div>
-				</div>
-			</a>
+				</a>
+			</div>
 		</div>
-	</div>
+	</sec:authorize>
 	<div class="row card-columns justify-content-center">
 		<div class=" col-11 col-sm-11 col-md-4 col-lg-4 col-xl-4">
 			<a href="/uniresultado/resultado/formulario">
