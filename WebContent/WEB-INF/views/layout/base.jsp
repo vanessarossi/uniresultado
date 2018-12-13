@@ -11,7 +11,8 @@
 <spring:url value="/resources/css/fontawesome.min.css" var="fontawesomeCSS"></spring:url>
 <spring:url value="/resources/css/principal.css" var="principalCSS"></spring:url>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="/resources/img/logo_unimed.png" type="image/x-icon"/>
 <title>UniResultado - <tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute> </title>
 
 <script type="text/javascript" src="${jqueryJS}"></script>
