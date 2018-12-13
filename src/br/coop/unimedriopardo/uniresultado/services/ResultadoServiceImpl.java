@@ -1,9 +1,10 @@
 package br.coop.unimedriopardo.uniresultado.services;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioLogEnvio;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioPrestador;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioResultado;
+import br.coop.unimedriopardo.uniresultado.util.Impressao;
 
 @Service
 @Transactional
@@ -111,5 +113,24 @@ public class ResultadoServiceImpl implements ResultadoService {
 			
 			repositorioLogEnvio.save(logEnvio);
 		}
+	}
+
+	public void converterResultadoEmPDF(Integer id) {
+		Resultado resultado = repositorioResultado.findOne(id);
+		FileOutputStream fileOutputStream = null;
+		File pasta = new Impressao().criarPasta();
+		File file = new File(pasta,id.toString()+".pdf");
+		try {
+			fileOutputStream = new FileOutputStream(file);
+			fileOutputStream.write(Base64.decodeBase64(resultado.getAnexo()));
+			fileOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String retornaCaminho() {
+		return new Impressao().caminho();
 	}
 }

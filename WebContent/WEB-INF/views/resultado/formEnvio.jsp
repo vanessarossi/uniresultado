@@ -25,7 +25,7 @@
 					<td>${resultado.nrExecucaoOperadora }</td>
 					<td>${resultado.tipoOperacao}</td>
 					<td>${resultado.data}</td>
-					<td>arquivo</td>
+					<td><a href="/uniresultado/resultado/arquivo/${resultado.id}" target="_blank" class="btn btn-sm btn-info"> <i class="fas fa-download"></i> </a></td>
 					<td>
 						<input type="checkbox" name="resultados[${ i.index}].id"  id="resultado${ i.index}" value="${resultado.id}"/>
 					</td>

@@ -50,6 +50,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value = "/alterar/{id}", method = RequestMethod.GET)
 	public String editar(@ModelAttribute("id") Integer id, Model model) {
+		model.addAttribute("prestadores", prestadorService.listagemOrdenada());
 		Usuario usuario = usuarioService.pesquisaPorId(id);
 		model.addAttribute("usuario",usuario);
 		return "usuario.form.tiles";

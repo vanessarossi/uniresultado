@@ -15,6 +15,8 @@ public interface ResultadoService {
 	public List<Resultado> listarPendentePorPrestador(Usuario usuarioLogado);
 	public void enviarExamesSelecionados(List<Resultado> resultados);
 	public void enviarExamesPendente(Usuario usuarioLogado);
+	public void converterResultadoEmPDF(Integer id);
+	public String retornaCaminho();
 
 }
 
