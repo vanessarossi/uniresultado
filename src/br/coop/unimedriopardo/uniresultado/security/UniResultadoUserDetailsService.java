@@ -14,6 +14,7 @@ import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioUsuario;
 
 public class UniResultadoUserDetailsService implements UserDetailsService{
+	
 
 	@Autowired
 	private RepositorioUsuario repositorioUsuario;
@@ -22,7 +23,7 @@ public class UniResultadoUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		Usuario usuario = repositorioUsuario.findByLogin(login);
 		if (usuario == null) {
-			throw new UsernameNotFoundException("Usuário não encontrado");
+			throw new UsernameNotFoundException("Usuï¿½rio nï¿½o encontrado");
 		}
 		Set<GrantedAuthority> perfis = new HashSet<GrantedAuthority>();
 		perfis.add(new SimpleGrantedAuthority(usuario.getPerfil()));
