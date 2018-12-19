@@ -8,7 +8,7 @@
 </section>
 <br>
 <section class="justify-content-center text-center">
-	<table class="table table-sm table-striped table-borderless table-hover">
+	<table class="table table-sm table-striped table-borderless table-hover" id="logsEnvio">
 		<thead>
 			<tr>
 				<th>Data</th>
@@ -31,3 +31,10 @@
 </section>
 <a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 <br>
+
+
+<script>
+$(document).ready( function () {
+    $('#logsEnvio').DataTable();
+} );
+</script>

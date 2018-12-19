@@ -1,5 +1,6 @@
 package br.coop.unimedriopardo.uniresultado.services;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class LogEnvioServiceImpl implements LogEnvioService {
 	
 	@Override
 	public List<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado) {
-		return repositorioLogEnvio.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId());
+		return repositorioLogEnvio.findByPrestador_idAndDataOrderByIdDesc(usuarioLogado.getPrestador().getId(), new Date());
 	}
 
 }

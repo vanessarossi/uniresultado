@@ -21,6 +21,7 @@
 <script type="text/javascript" src="${bootstrapJS}"></script>
 <link href="${fontawesomeCSS}" rel="stylesheet">
 <link href="${principalCSS}" rel="stylesheet">
+
 </head>
 <body>
 	<div>
