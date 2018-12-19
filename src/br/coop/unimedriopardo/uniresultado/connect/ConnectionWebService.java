@@ -20,10 +20,10 @@ import br.coop.unimedriopardo.uniresultado.util.ConversorDeData;
 public class ConnectionWebService {
 
 	public Boolean enviar(Usuario usuario, Resultado resultado) throws IOException {
-		URL url = new URL("http://192.168.0.242:8400/wsprestador/services/laudo_resultado_exame");
+		URL url = new URL(resultado.getPrestador().getEndpoint());
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-		String userCredentials = "admin:f6fdffe48c908deb0f4c3bd36c032e72";
+		String userCredentials = usuario.getPrestador().getLoginWebservice()+":"+usuario.getPrestador().getSenhaWebservice();
 		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
 		connection.setRequestProperty("Authorization", basicAuth);
@@ -81,7 +81,6 @@ public class ConnectionWebService {
 		message.put("body", body);
 		json.put("message", message);
 
-		System.out.println(json.toString());
 		return json.toString();
 	}
 
@@ -92,7 +91,6 @@ public class ConnectionWebService {
 		while ((output = bufferedReader.readLine()) != null) {
 			stringBuilder.append(output);
 		}
-		System.out.println(stringBuilder);
 		JSONObject resposta;
 		boolean status01;
 		boolean status02 = false;
@@ -108,8 +106,7 @@ public class ConnectionWebService {
 			return status01;
 		}
 		
-		//motivo = resposta.get("motivo").toString();
-		
+		//motivo = resposta.get("motivo").toString();	
 	}
 
 }
