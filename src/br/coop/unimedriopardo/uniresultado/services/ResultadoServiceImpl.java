@@ -90,28 +90,20 @@ public class ResultadoServiceImpl implements ResultadoService {
 		ConnectionWebService webService = new ConnectionWebService();
 		for (Resultado resultado : resultadosPendente) {
 			
-			LogEnvio logEnvio = new LogEnvio();
-			logEnvio.setData(new Date());
-			logEnvio.setPrestador(usuarioLogado.getPrestador());
-			logEnvio.setResultado(resultado);
-			logEnvio.setUsuario(usuarioLogado);
-			
+			LogEnvio logEnvio = null;
 			try {
-				boolean statusEnvio = webService.enviar(usuarioLogado, resultado);
-				if (statusEnvio) {
+				logEnvio = webService.enviar(usuarioLogado, resultado);
+				repositorioLogEnvio.save(logEnvio);
+				
+				if (logEnvio.getStatus() != "ER") {
 					resultado.setStatus("E");
-					repositorioResultado.save(resultado);
-					logEnvio.setStatus("E");
-				}else {
+				}else if(logEnvio.getStatus() == "ER") {
 					resultado.setStatus("P");
-					repositorioResultado.save(resultado);
-					logEnvio.setStatus("ER");
 				}
+				repositorioResultado.save(resultado);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			repositorioLogEnvio.save(logEnvio);
 		}
 	}
 

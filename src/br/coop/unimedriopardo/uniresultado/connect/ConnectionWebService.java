@@ -13,13 +13,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import br.coop.unimedriopardo.uniresultado.models.Exame;
+import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
 import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.util.ConversorDeData;
 
 public class ConnectionWebService {
 
-	public Boolean enviar(Usuario usuario, Resultado resultado) throws IOException {
+	public LogEnvio enviar(Usuario usuario, Resultado resultado) throws IOException {
 		URL url = new URL(resultado.getPrestador().getEndpoint());
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -34,15 +35,17 @@ public class ConnectionWebService {
 		connection.setDoOutput(true);
 
 		PrintStream printStream = new PrintStream(connection.getOutputStream());
-		boolean statusEnvio = false;
+		LogEnvio logEnvio = null;
 		try {
 			printStream.println(montarJson(resultado));
 			connection.connect();
-			statusEnvio = verificarResposta(connection);
+			StringBuilder stringBuilderResposta = verificarResposta(connection);
+			boolean status = retornaStatus(stringBuilderResposta);
+			logEnvio =  montarLogEnvio(usuario, resultado, status, stringBuilderResposta);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return statusEnvio;
+		return logEnvio;
 	}
 
 	public String montarJson(Resultado resultado) throws JSONException {
@@ -84,13 +87,17 @@ public class ConnectionWebService {
 		return json.toString();
 	}
 
-	public Boolean verificarResposta(HttpURLConnection connection) throws IOException, JSONException {
+	public StringBuilder verificarResposta(HttpURLConnection connection) throws IOException, JSONException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
 		StringBuilder stringBuilder = new StringBuilder();
 		String output;
 		while ((output = bufferedReader.readLine()) != null) {
 			stringBuilder.append(output);
 		}
+		return stringBuilder;
+	}
+	
+	public Boolean retornaStatus(StringBuilder stringBuilder) throws JSONException {
 		JSONObject resposta;
 		boolean status01;
 		boolean status02 = false;
@@ -105,8 +112,23 @@ public class ConnectionWebService {
 		}else {
 			return status01;
 		}
-		
-		//motivo = resposta.get("motivo").toString();	
 	}
-
+	
+	public LogEnvio montarLogEnvio(Usuario usuarioLogado, Resultado resultado, Boolean status, StringBuilder resposta) {
+		LogEnvio logEnvio = new LogEnvio();
+		logEnvio.setData(new Date());
+		logEnvio.setPrestador(usuarioLogado.getPrestador());
+		logEnvio.setResultado(resultado);
+		logEnvio.setUsuario(usuarioLogado);
+		logEnvio.setResposta(resposta.toString());
+	
+			if (status) {
+				logEnvio.setStatus("E");
+			}else {
+				logEnvio.setStatus("ER");
+			}
+			
+			return logEnvio;
+		}
+	
 }
