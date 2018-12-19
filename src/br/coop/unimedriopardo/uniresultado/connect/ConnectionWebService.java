@@ -81,6 +81,7 @@ public class ConnectionWebService {
 		message.put("body", body);
 		json.put("message", message);
 
+		System.out.println(json.toString());
 		return json.toString();
 	}
 
@@ -91,6 +92,7 @@ public class ConnectionWebService {
 		while ((output = bufferedReader.readLine()) != null) {
 			stringBuilder.append(output);
 		}
+		System.out.println(stringBuilder);
 		JSONObject resposta;
 		boolean status01;
 		boolean status02 = false;

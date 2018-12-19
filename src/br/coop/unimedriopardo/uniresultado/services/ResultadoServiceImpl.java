@@ -40,7 +40,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 	}
 
 	@Override
-	public Resultado salvar(Resultado resultado, MultipartFile anexo) {
+	public Resultado salvar(Resultado resultado, Usuario usuario, MultipartFile anexo) {
 		String anexoConvertido = null;
 		
 		try {
@@ -51,7 +51,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 		
 		resultado.setAnexo(anexoConvertido);
 		resultado.setData(new Date());
-		resultado.setPrestador(repositorioPrestador.findOne(1)); 
+		resultado.setPrestador(usuario.getPrestador()); 
 		List<Exame> exames = resultado.getExames();
 		Resultado resultadoSalvo = repositorioResultado.save(resultado);
 		

@@ -9,7 +9,7 @@ import br.coop.unimedriopardo.uniresultado.models.Usuario;
 
 public interface ResultadoService {
 	
-	public Resultado salvar(Resultado resultado, MultipartFile anexo);
+	public Resultado salvar(Resultado resultado,Usuario usuario, MultipartFile anexo);
 	public Resultado pesquisaPorId(Integer id);
 	public void cancelar(Integer id);
 	public List<Resultado> listarPendentePorPrestador(Usuario usuarioLogado);

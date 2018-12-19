@@ -57,11 +57,12 @@ public class ResultadoController {
 
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvar(MultipartFile arquivo, @Valid Resultado resultado, BindingResult result,
-			RedirectAttributes redirect) {
+			RedirectAttributes redirect, Principal principal) {
 		if (result.hasErrors()) {
 			return "resultado.form.tiles";
 		}
-		resultadoService.salvar(resultado, arquivo);
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		resultadoService.salvar(resultado,usuarioLogado, arquivo);
 		return "redirect:/resultado/conferencia";
 	}
 
