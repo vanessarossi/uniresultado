@@ -25,7 +25,7 @@ public class LogEnvioServiceImpl implements LogEnvioService {
 	
 	@Override
 	public List<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado) {
-		return repositorioLogEnvio.findByPrestador_idAndDataOrderByIdDesc(usuarioLogado.getPrestador().getId(), new Date());
+		return repositorioLogEnvio.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId());
 	}
 
 }
