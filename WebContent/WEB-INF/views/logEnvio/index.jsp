@@ -31,10 +31,3 @@
 </section>
 <a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 <br>
-
-
-<script>
-$(document).ready( function () {
-    $('#logsEnvio').DataTable();
-} );
-</script>
