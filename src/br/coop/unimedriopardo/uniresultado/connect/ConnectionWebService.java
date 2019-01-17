@@ -53,7 +53,7 @@ public class ConnectionWebService {
 		header.put("operadoraOrigem", "354619");
 		header.put("prestadorOrigem", resultado.getPrestador().getPrestadorOrigem());
 		header.put("sistemaOrigem", resultado.getPrestador().getSistemaPrestador());
-		header.put("dataHora", new ConversorDeData().formatar(new Date()));
+		header.put("dataHora", new ConversorDeData().formatar(new Date(),"YYYY-MM-dd HH:MM:SS"));
 
 		JSONArray exames = new JSONArray();
 		for (Exame exame : resultado.getExames()) {
@@ -83,7 +83,7 @@ public class ConnectionWebService {
 		message.put("header", header);
 		message.put("body", body);
 		json.put("message", message);
-
+				
 		return json.toString();
 	}
 

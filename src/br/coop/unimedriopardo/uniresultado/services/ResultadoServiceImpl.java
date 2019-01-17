@@ -17,7 +17,6 @@ import br.coop.unimedriopardo.uniresultado.models.Resultado;
 import br.coop.unimedriopardo.uniresultado.models.Usuario;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioLogEnvio;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioPrestador;
 import br.coop.unimedriopardo.uniresultado.repositories.RepositorioResultado;
 import br.coop.unimedriopardo.uniresultado.util.Impressao;
 
@@ -27,15 +26,14 @@ public class ResultadoServiceImpl implements ResultadoService {
 	
 	private final RepositorioResultado repositorioResultado;
 	private final RepositorioExame repositorioExame;
-	private final RepositorioPrestador repositorioPrestador;
+
 	private final RepositorioLogEnvio repositorioLogEnvio;
 
 	@Autowired
-	public ResultadoServiceImpl(RepositorioResultado repositorioResultado, RepositorioExame repositorioExame, RepositorioPrestador repositorioPrestador, RepositorioLogEnvio repositorioLogEnvio) {
+	public ResultadoServiceImpl(RepositorioResultado repositorioResultado, RepositorioExame repositorioExame, RepositorioLogEnvio repositorioLogEnvio) {
 		super();
 		this.repositorioResultado = repositorioResultado;
 		this.repositorioExame = repositorioExame;
-		this.repositorioPrestador = repositorioPrestador;
 		this.repositorioLogEnvio = repositorioLogEnvio;
 	}
 
@@ -124,5 +122,10 @@ public class ResultadoServiceImpl implements ResultadoService {
 	@Override
 	public String retornaCaminho() {
 		return new Impressao().caminho();
+	}
+
+	@Override
+	public List<Resultado> listarPorPrestador(Usuario usuarioLogado) {
+		return repositorioResultado.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId());
 	}
 }

@@ -11,6 +11,12 @@
 <spring:url value="/resources/css/fontawesome.min.css" var="fontawesomeCSS"></spring:url>
 <spring:url value="/resources/css/principal.css" var="principalCSS"></spring:url>
 
+
+
+<spring:url value="/resources/js/datatables.min.js" var="dataTableJS"></spring:url>
+<spring:url value="/resources/css/datatables.min.css" var="dataTableCSS"></spring:url>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/resources/img/logo_unimed.png" type="image/x-icon"/>
 <title>UniResultado - <tiles:insertAttribute name="title" ignore="true"></tiles:insertAttribute> </title>
@@ -21,6 +27,9 @@
 <script type="text/javascript" src="${bootstrapJS}"></script>
 <link href="${fontawesomeCSS}" rel="stylesheet">
 <link href="${principalCSS}" rel="stylesheet">
+
+<script type="text/javascript" src="${dataTableJS}"></script>
+<link href="${dataTableCSS}" rel="stylesheet">
 
 </head>
 <body>

@@ -1,23 +1,10 @@
 package br.coop.unimedriopardo.uniresultado.models;
 
+import java.util.Calendar;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import javax.persistence.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -28,9 +15,8 @@ public class LogEnvio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@DateTimeFormat(style = "dd/MM/yyyy hh:mm:ss")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data", columnDefinition = "DATETIME")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data")
 	private Date data;
 	
 	@NotBlank
@@ -108,6 +94,5 @@ public class LogEnvio {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
-
 
 }

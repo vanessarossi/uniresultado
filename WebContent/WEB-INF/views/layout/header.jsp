@@ -1,3 +1,3 @@
 <nav class="navbar navbar-dark bg-dark bg-pantone561c">
- 	<a class="navbar-brand" href="/uniresultado/home">UniResultado v1.0 - Unimed São José do Rio Pardo</a>
+ 	<a class="navbar-brand" href="/uniresultado/home">UniResultado v1.1 - Unimed São José do Rio Pardo</a>
 </nav>

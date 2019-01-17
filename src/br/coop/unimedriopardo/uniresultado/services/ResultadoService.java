@@ -13,6 +13,7 @@ public interface ResultadoService {
 	public Resultado pesquisaPorId(Integer id);
 	public void cancelar(Integer id);
 	public List<Resultado> listarPendentePorPrestador(Usuario usuarioLogado);
+	public List<Resultado> listarPorPrestador(Usuario usuarioLogado);
 	public void enviarExamesSelecionados(List<Resultado> resultados);
 	public void enviarExamesPendente(Usuario usuarioLogado);
 	public void converterResultadoEmPDF(Integer id);

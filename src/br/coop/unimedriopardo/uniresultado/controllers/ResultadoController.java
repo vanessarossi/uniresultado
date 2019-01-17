@@ -47,6 +47,13 @@ public class ResultadoController {
 		model.addAttribute("resultados", resultadoService.listarPendentePorPrestador(usuarioLogado));
 		return "resultado.conferencia.tiles";
 	}
+	
+	@RequestMapping("/listagem")
+	public String list(Model model, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		model.addAttribute("resultados", resultadoService.listarPorPrestador(usuarioLogado));
+		return "resultado.list.tiles";
+	}
 
 	@RequestMapping("/envio")
 	public String envio(Model model, Principal principal) {

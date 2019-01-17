@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <section class="text-center" id="titulo">
 	<h1 class="h1">Envio de Resultado / Laudo para o prontuário</h1>
 </section>
@@ -24,7 +25,7 @@
 					<td>${resultado.nrCartaoBeneficiario}</td>
 					<td>${resultado.nrExecucaoOperadora }</td>
 					<td>${resultado.tipoOperacao}</td>
-					<td>${resultado.data}</td>
+					<td><fmt:formatDate value="${resultado.data}" pattern="dd-MM-yyyy" /></td>
 					<td><a href="/uniresultado/resultado/arquivo/${resultado.id}" target="_blank" class="btn btn-sm btn-info"> <i class="fas fa-download"></i> </a></td>
 					<td>
 						<input type="checkbox" name="resultados[${ i.index}].id"  id="resultado${ i.index}" value="${resultado.id}"/>

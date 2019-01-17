@@ -47,11 +47,7 @@
 			<div class="form-group col-md-2">
 				<label>Status</label>
 				<form:select path="status" cssClass="form-control form-control-sm">
-				<form:option value="">SELECIONE</form:option>
 					<form:option value="P">PENDENTE</form:option>
-					<form:option value="C">CANCELADO</form:option>
-					<form:option value="E">ENVIADO</form:option>
-					<form:option value="ER">ENVIADO COM ERRO</form:option>
 				</form:select>
 				<form:errors path="status" />
 			</div>
@@ -96,6 +92,7 @@
 		<input type="hidden" id="contador" value="${fn:length(resultado.exames)}" />
 	</section>
 	<button type="submit" class="btn  btn-outline-success">Salvar</button>
+	<a href="/uniresultado/resultado/listagem" class="btn  btn-outline-primary">Ver resultados cadastrados</a>
 	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 	<br>
 </form:form>
