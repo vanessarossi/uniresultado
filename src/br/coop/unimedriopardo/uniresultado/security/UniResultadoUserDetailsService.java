@@ -23,7 +23,7 @@ public class UniResultadoUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		Usuario usuario = repositorioUsuario.findByLogin(login);
 		if (usuario == null) {
-			throw new UsernameNotFoundException("Usu�rio n�o encontrado");
+			throw new UsernameNotFoundException("Usuario nao encontrado");
 		}
 		Set<GrantedAuthority> perfis = new HashSet<GrantedAuthority>();
 		perfis.add(new SimpleGrantedAuthority(usuario.getPerfil()));

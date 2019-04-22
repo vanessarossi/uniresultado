@@ -1,6 +1,5 @@
 package br.coop.unimedriopardo.uniresultado.models;
 
-import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Length;
@@ -73,6 +72,10 @@ public class LogEnvio {
 
 	public String getResposta() {
 		return resposta;
+	}
+	
+	public String getRespostaReplace() {
+		return resposta.replaceAll("\"", "");
 	}
 
 	public void setResposta(String resposta) {

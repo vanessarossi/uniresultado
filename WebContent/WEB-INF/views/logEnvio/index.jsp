@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <section class="text-center" id="titulo">
 	<h1 class="h1">Logs de Envio</h1>
@@ -28,6 +29,7 @@
 				<th>Status</th>
 				<th>Resultado</th>
 				<th>Usuário</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,6 +38,14 @@
 					<td>${logEnvio.status}</td>
 					<td>${logEnvio.resultado.nrExecucaoOperadora} - ${logEnvio.resultado.nrCartaoBeneficiario}</td>
 					<td>${logEnvio.usuario.nome}</td>
+					<td>
+						<c:if test="${logEnvio.status eq 'ER'}">
+							<button type="button" class="btn btn-sm btn-warning" onclick="abrirModalResposta('${logEnvio.getRespostaReplace()}')"> <i class="fas fa-exclamation-triangle"></i></button>
+						</c:if> 
+						<c:if test="${logEnvio.status eq 'E'}">
+							<button type="button" class="btn btn-sm btn-success" onclick="abrirModalResposta('${logEnvio.getRespostaReplace()}')"> <i class="fas fa-check-square"></i></button>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -43,9 +53,32 @@
 </section>
 <a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 <br><br><br>
+<div class="modal" tabindex="-1" role="dialog" id="modalRespostaLog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Log de Resposta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="resposta"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
 $('#logsEnvio').DataTable( {
     "ordering": false,
     "info":     false
 } );
+
+function abrirModalResposta(resposta) {
+	$("#resposta").text(resposta);
+	$("#modalRespostaLog").modal('show');
+}
 </script>
