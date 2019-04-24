@@ -73,6 +73,11 @@ public class ResultadoServiceImpl implements ResultadoService {
 	@Override
 	public void cancelar(Integer id) {
 		Resultado resultado = repositorioResultado.findOne(id);
+		if(resultado.getNrExecucaoOperadora().equals("")) {
+			resultado.setNrExecucaoOperadora("nao informado");
+		}if(resultado.getNrCartaoBeneficiario().equals("")) {
+			resultado.setNrCartaoBeneficiario("nao informado");
+		}
 		resultado.setStatus("C");
 		resultado.setDataCancelamento(new Date());
 		repositorioResultado.save(resultado);
