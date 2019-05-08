@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.models;
+package br.coop.unimedriopardo.uniresultado.model;
 
 import java.util.List;
 
@@ -13,18 +13,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PK_SEQ_USUARIO")
+	@SequenceGenerator(sequenceName = "SEQ_USUARIO", allocationSize = 1, name = "PK_SEQ_USUARIO")
 	private Integer id;
 
 	@NotBlank
@@ -41,22 +46,26 @@ public class Usuario {
 	private String senha;
 
 	@Email
+	@Length(min = 1, max = 50)
 	@Column(name = "email", length = 200)
 	private String email;
 
 	@NotNull
+	@Length(min = 1, max = 1)
 	@Column(name = "ativo", nullable = false)
-	private Boolean ativo;
+	private Integer ativo;
 
 	@NotBlank
 	@Column(name = "perfil", length = 100, nullable = false)
 	private String perfil;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_usuario"))
+	@JoinColumn(name = "prestador_id", referencedColumnName="id", foreignKey = @ForeignKey(name = "Fk_prestador_usuario"))
 	private Prestador prestador;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JsonIgnore
 	private List<LogEnvio> logsEnvio;
 
 	public Integer getId() {
@@ -99,11 +108,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Boolean getAtivo() {
+	public Integer getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(Integer ativo) {
 		this.ativo = ativo;
 	}
 
@@ -121,6 +130,14 @@ public class Usuario {
 
 	public void setPrestador(Prestador prestador) {
 		this.prestador = prestador;
+	}
+
+	public List<LogEnvio> getLogsEnvio() {
+		return logsEnvio;
+	}
+
+	public void setLogsEnvio(List<LogEnvio> logsEnvio) {
+		this.logsEnvio = logsEnvio;
 	}
 
 }

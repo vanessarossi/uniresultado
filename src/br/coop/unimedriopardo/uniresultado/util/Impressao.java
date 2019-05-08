@@ -8,7 +8,7 @@ public class Impressao {
 
 	public File criarPasta() {
 		// catalina.base
-		String folderPath = System.getProperty("catalina.home") + "/webapps/impressaoExame";
+		String folderPath = System.getProperty("catalina.base") + "/webapps/impressaoExame";
 		folder = new File(folderPath);
 		if (!folder.exists()) {
 			folder.mkdir();
@@ -17,7 +17,7 @@ public class Impressao {
 	}
 	
 	public String caminho() {
-		return System.getProperty("catalina.home") + "/webapps/impressaoExame";
+		return System.getProperty("catalina.base") + "/webapps/impressaoExame";
 	}
 
 }

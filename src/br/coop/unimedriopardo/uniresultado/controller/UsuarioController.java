@@ -1,17 +1,24 @@
-package br.coop.unimedriopardo.uniresultado.controllers;
+package br.coop.unimedriopardo.uniresultado.controller;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.services.PrestadorService;
-import br.coop.unimedriopardo.uniresultado.services.UsuarioService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.service.PrestadorService;
+import br.coop.unimedriopardo.uniresultado.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
@@ -35,8 +42,21 @@ public class UsuarioController {
 	
 	@RequestMapping("/listagem")
 	public String list(Model model) {
-		model.addAttribute("usuarios",usuarioService.listagemOrdenada());
 		return "usuario.list.tiles";
+	}
+	
+	@GetMapping("/pesquisa")
+	public @ResponseBody Page<Usuario> pesquisaPaginacao(
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.DEFAULT_DIRECTION,"nome");
+		return usuarioService.listagemOrdenada(pageRequest);
 	}
 	
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)

@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.models;
+package br.coop.unimedriopardo.uniresultado.model;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class LogEnvio {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PK_SEQ_LOGENVIO")
+	@SequenceGenerator(sequenceName = "SEQ_LOGENVIO", allocationSize = 1, name = "PK_SEQ_LOGENVIO")
 	private Integer id;
 	
 	@Temporal(TemporalType.DATE)

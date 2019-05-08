@@ -42,7 +42,7 @@
 		</div>	
 	</div>
 	<form:hidden path="id" />
-	<button type="submit" class="btn  btn-outline-success">Salvar</button>
-	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
+	<button type="submit" class="btn btn-success">Salvar</button>
+	<a href="/uniresultado/home" class="btn btn-secondary">Página Inicial</a>
 	<br>
 </form:form>

@@ -19,26 +19,18 @@
 				</form:select>
 				<form:errors path="tipoOperacao" />
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label>Nº Cartão do Beneficiário</label>
 				<form:input cssClass="form-control form-control-sm" path="nrCartaoBeneficiario" />
 				<form:errors path="nrCartaoBeneficiario" />
 			</div>
-			<div class="form-group col-md-2">
+			<div class="form-group col-md-3">
 				<label>Nº Execução da Operadora</label>
 				<form:input cssClass="form-control form-control-sm" path="nrExecucaoOperadora" />
 				<form:errors path="nrExecucaoOperadora" />
 			</div>	
 		</div>
-		<div class="form-row">	
-			<div class="form-group col-md-2">
-				<label>Formato do Arquivo</label>
-				<form:select path="formatoArquivo" cssClass="form-control form-control-sm">
-					<form:option value="PDF">PDF</form:option>
-					<form:option value="PNG">PNG</form:option>
-				</form:select>
-				<form:errors path="formatoArquivo" />
-			</div>
+		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Arquivo</label>
 				<input type="file" class="form-control form-control-sm" name="arquivo" />
@@ -54,46 +46,10 @@
 		</div>
 		<form:hidden path="id" />
 	</section>
-	<section>
-		<div class="form-row">
-			<div class="form-group col-md-2">
-				<label>Código Exame</label>
-				<input type="text" class="form-control form-control-sm" id="codigoExame"/>
-			</div>
-			<div class="form-group col-md-1">
-				<label>Quantidade</label>
-				<input type="text" class="form-control form-control-sm" id="quantidade"/>
-			</div>
-			<div class="form-group col-md-2">
-				<br>
-				<a href="#" class="btn  btn-success"  onclick="addExame()">+</a>
-			</div>
-		</div>
-		<table class="table table-sm table-hover" id="tabelaExames">
-			<thead>
-				<tr>
-					<th>Código Exame</th>
-					<th>Quantidade</th>
-					<th>Código Tabela</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${reultado.exames}" var="exame">
-					<tr>
-						<td>${exame.codigoExame}</td>
-						<td>${exame.qtde}</td>
-						<td>${exame.codigoTabela}</td>
-						<td><a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<input type="hidden" id="contador" value="${fn:length(resultado.exames)}" />
-	</section>
-	<button type="submit" class="btn  btn-outline-success">Salvar</button>
-	<a href="/uniresultado/resultado/listagem" class="btn  btn-outline-primary">Ver resultados cadastrados</a>
-	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
+	<button type="submit" id="salvar" class="btn btn-success">Salvar</button>
+	<a href="#" onclick="validarAutorizacao()" class="btn btn-info">Validar Autorização</a>
+	<a href="/uniresultado/resultado/listagem" class="btn btn-primary">Ver resultados cadastrados</a>
+	<a href="/uniresultado/home" class="btn btn-secondary">Página Inicial</a>
 	<br>
 </form:form>
 <spring:url value="/resources/js/form_resultado.js" var="formResultadoJS"></spring:url>

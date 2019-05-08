@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.models;
+package br.coop.unimedriopardo.uniresultado.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -19,7 +20,8 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Exame {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PK_SEQ_EXAME")
+	@SequenceGenerator(sequenceName = "SEQ_EXAME", allocationSize = 1, name = "PK_SEQ_EXAME")
 	private Integer id;
 
 	@NotBlank

@@ -8,7 +8,7 @@
 </section>
 <br>
 <section class="justify-content-center text-center">
-	<table class="table table-sm table-striped table-borderless table-hover">
+	<table class="table table-sm table-striped table-borderless table-hover" id="tabelaEnvio">
 		<thead>
 			<tr>
 				<th>Nrº Cartão Beneficiário</th>
@@ -19,24 +19,13 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tbody>
-			<c:forEach items="${resultados}" var="resultado" varStatus="i">
-				<tr>
-					<td>${resultado.nrCartaoBeneficiario}</td>
-					<td>${resultado.nrExecucaoOperadora }</td>
-					<td>${resultado.tipoOperacao}</td>
-					<td><fmt:formatDate value="${resultado.data}" pattern="dd-MM-yyyy" /></td>
-					<td><a href="/uniresultado/resultado/arquivo/${resultado.id}" target="_blank" class="btn btn-sm btn-info"> <i class="fas fa-download"></i> </a></td>
-					<td>
-						<input type="checkbox" name="resultados[${ i.index}].id"  id="resultado${ i.index}" value="${resultado.id}"/>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+		<tbody></tbody>
 	</table>
 </section>
 
-<a href="/uniresultado/resultado/enviar/todos" class="btn  btn-outline-info">Enviar todos</a>
-<button type="submit" class="btn  btn-outline-info">Enviar selecionados</button>
-<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
+<a href="/uniresultado/resultado/enviar/todos" class="btn  btn-info">Enviar todos</a>
+<button type="submit" class="btn  btn-info">Enviar selecionados</button>
+<a href="/uniresultado/home" class="btn  btn-secondary">Página Inicial</a>
 <br>
+<spring:url value="/resources/js/lista_envio_resultado.js" var="listaEnvioResultadoJS"></spring:url>
+<script type="text/javascript" src="${listaEnvioResultadoJS}"></script>

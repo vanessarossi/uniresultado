@@ -60,7 +60,7 @@
 	</div>
 	<div class="row card-columns justify-content-center">
 		<div class=" col-11 csol-sm-11 col-md-4 col-lg-4 col-xl-4">
-			<a href="/uniresultado/resultado/envio">
+			<a href="/uniresultado/resultado/form/envio">
 				<div class="card text-center card-pantone357c" id="envioResultado">
 					<i class="fas fa-upload fa-5x"></i>
 					<div class="card-body">

@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.models;
+package br.coop.unimedriopardo.uniresultado.model;
 
 import java.util.List;
 
@@ -10,17 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "prestador")
 public class Prestador {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PK_SEQ_PRESTADOR")
+	@SequenceGenerator(sequenceName = "SEQ_PRESTADOR", allocationSize = 1, name = "PK_SEQ_PRESTADOR")
 	private Integer id;
 
 	@NotBlank
@@ -29,7 +33,7 @@ public class Prestador {
 	private String nome;
 	
 	@NotBlank
-	@Length(min = 3, max = 20)
+	@Length(min = 1, max = 20)
 	@Column(name = "prestador_origem", length = 20, nullable = false)
 	private String prestadorOrigem;
 
@@ -53,9 +57,11 @@ public class Prestador {
 	@Column(name = "login_webservice", length = 50, nullable = false)
 	private String loginWebservice;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Usuario> usuarios;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Resultado> resultados;
 

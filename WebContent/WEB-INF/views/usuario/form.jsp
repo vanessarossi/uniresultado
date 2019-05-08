@@ -31,7 +31,10 @@
 		</div>
 		<div class="form-group col-md-1">
 			<label>Ativo</label>
-			<form:checkbox cssClass="form-control form-control-sm" path="ativo"></form:checkbox>
+			<form:select path="ativo" cssClass="form-control form-control-sm">
+				<form:option value="1">Sim</form:option>
+				<form:option value="0">Não</form:option>
+			</form:select>
 			<form:errors path="ativo" />
 		</div>		
 	</div>
@@ -55,7 +58,7 @@
 		</div>
 	</div>
 	<form:hidden path="id" />
-	<button type="submit" class="btn  btn-outline-success">Salvar</button>
-	<a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
+	<button type="submit" class="btn  btn-success">Salvar</button>
+	<a href="/uniresultado/home" class="btn  btn-secondary">Página Inicial</a>
 	<br>
 </form:form>

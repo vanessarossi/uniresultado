@@ -12,10 +12,11 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import br.coop.unimedriopardo.uniresultado.models.Exame;
-import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
-import br.coop.unimedriopardo.uniresultado.models.Resultado;
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
+
+import br.coop.unimedriopardo.uniresultado.model.Exame;
+import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
+import br.coop.unimedriopardo.uniresultado.model.Resultado;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
 import br.coop.unimedriopardo.uniresultado.util.ConversorDeData;
 
 public class ConnectionWebService {

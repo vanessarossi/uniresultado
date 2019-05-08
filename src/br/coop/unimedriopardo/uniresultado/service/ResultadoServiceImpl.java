@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.services;
+package br.coop.unimedriopardo.uniresultado.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,17 +7,19 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.uniresultado.connect.ConnectionWebService;
-import br.coop.unimedriopardo.uniresultado.models.Exame;
-import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
-import br.coop.unimedriopardo.uniresultado.models.Resultado;
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioExame;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioLogEnvio;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioResultado;
+import br.coop.unimedriopardo.uniresultado.model.Exame;
+import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
+import br.coop.unimedriopardo.uniresultado.model.Resultado;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioExame;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioLogEnvio;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioResultado;
 import br.coop.unimedriopardo.uniresultado.util.Impressao;
 
 @Service
@@ -26,7 +28,6 @@ public class ResultadoServiceImpl implements ResultadoService {
 	
 	private final RepositorioResultado repositorioResultado;
 	private final RepositorioExame repositorioExame;
-
 	private final RepositorioLogEnvio repositorioLogEnvio;
 
 	@Autowired
@@ -66,8 +67,8 @@ public class ResultadoServiceImpl implements ResultadoService {
 	}
 
 	@Override
-	public List<Resultado> listarPendentePorPrestador(Usuario usuarioLogado) {
-		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"P");
+	public Page<Resultado> listarPendentePorPrestador(Usuario usuarioLogado, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"P", pageable);
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 	}
 
 	@Override
-	public List<Resultado> listarPorPrestador(Usuario usuarioLogado) {
-		return repositorioResultado.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId());
+	public Page<Resultado> listarPorPrestador(Usuario usuarioLogado, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId(), pageable);
 	}
 }

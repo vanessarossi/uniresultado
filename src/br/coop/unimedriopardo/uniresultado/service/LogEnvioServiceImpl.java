@@ -1,13 +1,15 @@
-package br.coop.unimedriopardo.uniresultado.services;
+package br.coop.unimedriopardo.uniresultado.service;
 
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import br.coop.unimedriopardo.uniresultado.models.LogEnvio;
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioLogEnvio;
+
+import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioLogEnvio;
 
 @Service
 @Transactional
@@ -23,8 +25,8 @@ public class LogEnvioServiceImpl implements LogEnvioService {
 	}
 	
 	@Override
-	public List<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado, Date data) {
-		List<LogEnvio> logEnvios = repositorioLogEnvio.findByPrestador_idAndDataOrderByIdDesc(usuarioLogado.getPrestador().getId(),data);
+	public List<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado, Date data, Pageable pageable) {
+		List<LogEnvio> logEnvios = repositorioLogEnvio.findByPrestador_idAndDataOrderByIdDesc(usuarioLogado.getPrestador().getId(),data, pageable);
 		return logEnvios;
 	}
 

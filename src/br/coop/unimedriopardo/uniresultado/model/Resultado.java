@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.models;
+package br.coop.unimedriopardo.uniresultado.model;
 
 import java.util.Date;
 import java.util.List;
@@ -15,20 +15,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "resultado")
 public class Resultado {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PK_SEQ_RESULTADO")
+	@SequenceGenerator(sequenceName = "SEQ_RESULTADO", allocationSize = 1, name = "PK_SEQ_RESULTADO")
 	private Integer id;
 
 	@NotBlank
@@ -60,14 +60,12 @@ public class Resultado {
 	@Column(name = "status", length = 1, nullable = false)
 	private String status;
 	
-	@DateTimeFormat(style = "dd/MM/yyyy hh:mm:ss")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data", columnDefinition = "DATETIME")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data", columnDefinition = "DATE")
 	private Date data;
 	
-	@DateTimeFormat(style = "dd/MM/yyyy hh:mm:ss")
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cancelamento", columnDefinition = "DATETIME")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_cancelamento", columnDefinition = "DATE")
 	private Date dataCancelamento;
 	
 	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
@@ -77,7 +75,7 @@ public class Resultado {
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_resultado"))
 	private Prestador prestador;
 	
-	@OneToMany(mappedBy = "resultado", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<LogEnvio> logsEnvio;
 
 	public Integer getId() {

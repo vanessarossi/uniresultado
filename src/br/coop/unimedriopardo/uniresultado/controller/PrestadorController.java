@@ -1,15 +1,21 @@
-package br.coop.unimedriopardo.uniresultado.controllers;
+package br.coop.unimedriopardo.uniresultado.controller;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import br.coop.unimedriopardo.uniresultado.models.Prestador;
-import br.coop.unimedriopardo.uniresultado.services.PrestadorService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import br.coop.unimedriopardo.uniresultado.model.Prestador;
+import br.coop.unimedriopardo.uniresultado.service.PrestadorService;
 
 
 @Controller
@@ -31,9 +37,23 @@ public class PrestadorController {
 	
 	@RequestMapping("/listagem")
 	public String list(Model model) {
-		model.addAttribute("prestadores",prestadorService.listagemOrdenada());
 		return "prestador.list.tiles";
 	}
+
+	@GetMapping("/pesquisa")
+	public @ResponseBody Page<Prestador> pesquisaPaginacao(
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.DEFAULT_DIRECTION,"nome");
+		return prestadorService.listagemOrdenada(pageRequest);
+	}
+	
 	
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
 	public String salvar(@ModelAttribute("prestador") @Valid Prestador prestador, BindingResult result, Model model) {

@@ -1,4 +1,4 @@
-package br.coop.unimedriopardo.uniresultado.controllers;
+package br.coop.unimedriopardo.uniresultado.controller;
 
 import java.security.Principal;
 import java.util.Date;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.services.LogEnvioService;
-import br.coop.unimedriopardo.uniresultado.services.UsuarioService;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.service.LogEnvioService;
+import br.coop.unimedriopardo.uniresultado.service.UsuarioService;
 import br.coop.unimedriopardo.uniresultado.util.ConversorDeData;
 
 
@@ -32,14 +32,14 @@ public class LogEnvioController {
 	@RequestMapping("/listagem")
 	public String list(Model model, Principal principal) {
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		model.addAttribute("logsEnvio",logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado, new Date()));
+		//model.addAttribute("logsEnvio",logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado, new Date()));
 		return "logEnvio.list.tiles";
 	}
 	
 	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
 	public String consultar(@ModelAttribute("data") String data, Model model, Principal principal) {
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		model.addAttribute("logsEnvio",logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado,new ConversorDeData().formatarStringParaData(data)));
+		//model.addAttribute("logsEnvio",logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado,new ConversorDeData().formatarStringParaData(data)));
 		return "logEnvio.list.tiles";
 	}
 }

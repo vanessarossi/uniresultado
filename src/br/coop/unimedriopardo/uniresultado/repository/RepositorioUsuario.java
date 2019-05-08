@@ -1,8 +1,9 @@
-package br.coop.unimedriopardo.uniresultado.repositories;
+package br.coop.unimedriopardo.uniresultado.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
+
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
 
 public interface RepositorioUsuario extends JpaRepository<Usuario, Integer> {
 

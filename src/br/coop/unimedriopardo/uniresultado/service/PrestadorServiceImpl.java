@@ -1,14 +1,15 @@
-package br.coop.unimedriopardo.uniresultado.services;
+package br.coop.unimedriopardo.uniresultado.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import br.coop.unimedriopardo.uniresultado.models.Prestador;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioPrestador;
+import br.coop.unimedriopardo.uniresultado.model.Prestador;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioPrestador;
 
 
 @Service
@@ -41,5 +42,11 @@ public class PrestadorServiceImpl implements PrestadorService {
 	@Override
 	public void deletar(Integer id) {
 		repositorioPrestador.delete(id);
+	}
+
+	@Override
+	public Page<Prestador> listagemOrdenada(Pageable pageable) {
+		Page<Prestador> prestadores = repositorioPrestador.findAll(pageable);
+		return prestadores;
 	}
 }

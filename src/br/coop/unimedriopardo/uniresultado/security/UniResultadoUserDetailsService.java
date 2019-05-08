@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioUsuario;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioUsuario;
 
 public class UniResultadoUserDetailsService implements UserDetailsService{
 	

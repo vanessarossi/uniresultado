@@ -1,16 +1,16 @@
-package br.coop.unimedriopardo.uniresultado.services;
+package br.coop.unimedriopardo.uniresultado.service;
 
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.coop.unimedriopardo.uniresultado.models.Usuario;
-import br.coop.unimedriopardo.uniresultado.repositories.RepositorioUsuario;
+import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.repository.RepositorioUsuario;
 
 @Service
 @Transactional
@@ -32,8 +32,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 
 	@Override
-	public List<Usuario> listagemOrdenada() {
-		return repositorioUsuario.findAll(new Sort("nome"));
+	public Page<Usuario> listagemOrdenada(Pageable pageable) {
+		Page<Usuario> usuarios = repositorioUsuario.findAll(pageable);
+		return usuarios;
 	}
 
 	@Override
