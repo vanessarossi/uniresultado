@@ -50,8 +50,7 @@ function montarTabela(listaResultados) {
 		    row += "<td>"+ listaResultados[i]["nrExecucaoOperadora"] +"</td>";
 		    row += "<td>"+ listaResultados[i]["tipoOperacao"] +"</td>";
 		    row += "<td>"+ listaResultados[i]["data"] +"</td>";
-		    row += "<td>"+ '<a href="/uniresultado/resultado/alterar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
-		    row += "<td>"+ '<a href="/uniresultado/resultado/excluir/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>' +"</td>";
+		    row += "<td>"+ '<a href="/uniresultado/resultado/cancelar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-window-close"></i></a>' +"</td>";
 			row += "</tr>";
 		$('#tabelaConferenciaResultado').append(row);
 	}

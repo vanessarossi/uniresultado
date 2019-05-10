@@ -6,11 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
@@ -36,11 +33,15 @@ public class LogEnvioController {
 		return "logEnvio.list.tiles";
 	}
 	
-	@GetMapping("/pesquisa/log")
+	
+	@GetMapping("/pesquisa")
 	public @ResponseBody Page<LogEnvio> pesquisaLog(
 			@RequestParam(
 						value = "data",
 						required = true) String data,
+			@RequestParam(
+					value = "status",
+					required = true) String status,
             @RequestParam(
             		value = "page",
                     required = false,
@@ -51,16 +52,22 @@ public class LogEnvioController {
                     defaultValue = "20") int size,
             		Principal principal) {
 		
-		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
+		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"dataEnvio");
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		return logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado, data, pageRequest);
+		Page<LogEnvio> logs = null;
+		if (status.equals("T")) {
+			logs = logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado, data, pageRequest);
+		}else {
+			logs = logEnvioService.listagemOrdenadaDoPrestadorPorStatus(usuarioLogado, status, data, pageRequest);
+		}
+		return logs;
 	}
 	
-	
-	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
-	public String consultar(@ModelAttribute("data") String data, Model model, Principal principal) {
-		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		//model.addAttribute("logsEnvio",logEnvioService.listagemOrdenadaDoPrestador(usuarioLogado,new ConversorDeData().formatarStringParaData(data)));
-		return "logEnvio.list.tiles";
+	@GetMapping("/pesquisa/id")
+	public @ResponseBody LogEnvio pesquisaLogId(
+			@RequestParam(
+						value = "id",
+						required = true) int id) {
+		return logEnvioService.pequisarPorId(id);
 	}
 }

@@ -21,35 +21,29 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label>Nº Cartão do Beneficiário</label>
-				<form:input cssClass="form-control form-control-sm" path="nrCartaoBeneficiario" />
+				<form:input cssClass="form-control form-control-sm" path="nrCartaoBeneficiario"/>
 				<form:errors path="nrCartaoBeneficiario" />
 			</div>
 			<div class="form-group col-md-3">
 				<label>Nº Execução da Operadora</label>
-				<form:input cssClass="form-control form-control-sm" path="nrExecucaoOperadora" />
+				<form:input cssClass="form-control form-control-sm" path="nrExecucaoOperadora"/>
 				<form:errors path="nrExecucaoOperadora" />
 			</div>	
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label>Arquivo</label>
-				<input type="file" class="form-control form-control-sm" name="arquivo" />
+				<input type="file" class="form-control form-control-sm" name="arquivo"/>
 				<form:errors path="anexo" />
 			</div>
-			<div class="form-group col-md-2">
-				<label>Status</label>
-				<form:select path="status" cssClass="form-control form-control-sm">
-					<form:option value="P">PENDENTE</form:option>
-				</form:select>
-				<form:errors path="status" />
-			</div>
 		</div>
+		<form:hidden path="formatoArquivo" value="pdf" />
+		<form:hidden path="status" value="I" />
 		<form:hidden path="id" />
 	</section>
-	<button type="submit" id="salvar" class="btn btn-success">Salvar</button>
-	<a href="#" onclick="validarAutorizacao()" class="btn btn-info">Validar Autorização</a>
 	<a href="/uniresultado/resultado/listagem" class="btn btn-primary">Ver resultados cadastrados</a>
 	<a href="/uniresultado/home" class="btn btn-secondary">Página Inicial</a>
+	<button type="submit" id="salvar" class="btn btn-success">Salvar</button>
 	<br>
 </form:form>
 <spring:url value="/resources/js/form_resultado.js" var="formResultadoJS"></spring:url>

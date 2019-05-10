@@ -1,6 +1,5 @@
 package br.coop.unimedriopardo.uniresultado.model;
 
-import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,9 +14,8 @@ public class LogEnvio {
 	@SequenceGenerator(sequenceName = "SEQ_LOGENVIO", allocationSize = 1, name = "PK_SEQ_LOGENVIO")
 	private Integer id;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data")
-	private Date data;
+	@Column(name = "data_envio")
+	private String dataEnvio;
 	
 	@NotBlank
 	@Length(min = 1, max = 2)
@@ -47,12 +45,12 @@ public class LogEnvio {
 		this.id = id;
 	}
 
-	public Date getData() {
-		return data;
+	public String getDataEnvio() {
+		return dataEnvio;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataEnvio(String dataEnvio) {
+		this.dataEnvio = dataEnvio;
 	}
 
 	public String getStatus() {
@@ -74,10 +72,6 @@ public class LogEnvio {
 	public String getResposta() {
 		return resposta;
 	}
-	
-	public String getRespostaReplace() {
-		return resposta.replaceAll("\"", "");
-	}
 
 	public void setResposta(String resposta) {
 		this.resposta = resposta;
@@ -98,5 +92,4 @@ public class LogEnvio {
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
 	}
-
 }

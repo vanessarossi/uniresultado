@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import br.coop.unimedriopardo.uniresultado.connect.ConnectionWebService;
-import br.coop.unimedriopardo.uniresultado.model.Exame;
 import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
 import br.coop.unimedriopardo.uniresultado.model.Resultado;
 import br.coop.unimedriopardo.uniresultado.model.Usuario;
@@ -27,14 +26,12 @@ import br.coop.unimedriopardo.uniresultado.util.Impressao;
 public class ResultadoServiceImpl implements ResultadoService {
 	
 	private final RepositorioResultado repositorioResultado;
-	private final RepositorioExame repositorioExame;
 	private final RepositorioLogEnvio repositorioLogEnvio;
 
 	@Autowired
 	public ResultadoServiceImpl(RepositorioResultado repositorioResultado, RepositorioExame repositorioExame, RepositorioLogEnvio repositorioLogEnvio) {
 		super();
 		this.repositorioResultado = repositorioResultado;
-		this.repositorioExame = repositorioExame;
 		this.repositorioLogEnvio = repositorioLogEnvio;
 	}
 
@@ -51,14 +48,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 		resultado.setAnexo(anexoConvertido);
 		resultado.setData(new Date());
 		resultado.setPrestador(usuario.getPrestador()); 
-		List<Exame> exames = resultado.getExames();
-		Resultado resultadoSalvo = repositorioResultado.save(resultado);
-		
-		for (Exame exame : exames) {
-			exame.setResultado(resultadoSalvo);
-			repositorioExame.save(exame);
-		}
-		return resultado;
+		return repositorioResultado.save(resultado);
 	}
 
 	@Override
@@ -93,7 +83,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 				if (logEnvio.getStatus() != "ER") {
 					resultado.setStatus("E");
 				}else if(logEnvio.getStatus() == "ER") {
-					resultado.setStatus("P");
+					resultado.setStatus("ER");
 				}
 				repositorioResultado.save(resultado);
 			} catch (IOException e) {
@@ -124,7 +114,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 	
 	@Override
 	public void validarResultados(Usuario usuarioLogado) {
-		
+		repositorioResultado.validarExames(usuarioLogado.getPrestador().getId());
 	}
 
 	
@@ -146,5 +136,10 @@ public class ResultadoServiceImpl implements ResultadoService {
 	@Override
 	public Page<Resultado> listarErroValidacaoPorPrestador(Usuario usuarioLogado, Pageable pageable) {
 		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "EV", pageable);
+	}
+
+	@Override
+	public Page<Resultado> listarPorPrestadorEStatus(Usuario usuarioLogado, String status, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),status, pageable);
 	}
 }

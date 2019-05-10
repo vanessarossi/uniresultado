@@ -37,10 +37,9 @@
 		<ul class="pagination justify-content-end" id="paginacao"></ul>
 	</nav>
 </section>
-<a href="/uniresultado/resultado/formulario" class="btn btn-primary">
-	Novo Resultado</a>
-<a href="/uniresultado/home" class="btn  btn-secondary">Página
-	Inicial</a>
+<a href="/uniresultado/resultado/validar" class="btn btn-info">Validar Importados</a>
+<a href="/uniresultado/resultado/formulario" class="btn btn-primary">Novo Resultado</a>
+<a href="/uniresultado/home" class="btn btn-secondary">Página Inicial</a>
 <spring:url value="/resources/js/lista_conferencia_resultado.js"
 	var="listaConferenciaResultadoJS"></spring:url>
 <script type="text/javascript" src="${listaConferenciaResultadoJS}"></script>

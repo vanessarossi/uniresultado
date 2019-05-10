@@ -15,8 +15,6 @@
 				<th>Nrº Execução</th>
 				<th>Tipo</th>
 				<th>Data</th>
-				<th></th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -25,9 +23,8 @@
 		<ul class="pagination justify-content-end" id="paginacao"></ul>
 	</nav>
 </section>
-
-<a href="/uniresultado/resultado/enviar/todos" class="btn  btn-info">Enviar todos</a>
-<button type="submit" class="btn  btn-info">Enviar selecionados</button>
+<a href="/uniresultado/resultado/enviar/todos" class="btn btn-info">Enviar todos</a>
+<a href="/uniresultado/resultado/enviar/todos/fracionados" class="btn btn-info">Enviar todos fracionados</button>
 <a href="/uniresultado/home" class="btn  btn-secondary">Página Inicial</a>
 <br>
 <spring:url value="/resources/js/lista_envio_resultado.js" var="listaEnvioResultadoJS"></spring:url>

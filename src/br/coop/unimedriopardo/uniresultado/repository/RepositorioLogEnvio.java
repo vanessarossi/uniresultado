@@ -8,5 +8,6 @@ import br.coop.unimedriopardo.uniresultado.model.LogEnvio;
 
 public interface RepositorioLogEnvio extends JpaRepository<LogEnvio, Integer> {
 
-	public Page<LogEnvio> findByPrestador_idAndDataOrderByIdDesc(Integer id, String data, Pageable pageable);
+	public Page<LogEnvio> findByPrestador_idAndStatusAndDataEnvioOrderByIdDesc(Integer id, String status, String data, Pageable pageable);
+	public Page<LogEnvio> findByPrestador_idAndDataEnvioOrderByIdDesc(Integer id,String data, Pageable pageable);
 }

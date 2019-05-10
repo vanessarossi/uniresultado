@@ -22,9 +22,20 @@ public class LogEnvioServiceImpl implements LogEnvioService {
 	}
 	
 	@Override
-	public Page<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado, String data, Pageable pageable) {
-		Page<LogEnvio> logEnvios = repositorioLogEnvio.findByPrestador_idAndDataOrderByIdDesc(usuarioLogado.getPrestador().getId(),data, pageable);
+	public Page<LogEnvio> listagemOrdenadaDoPrestadorPorStatus(Usuario usuarioLogado, String status, String data, Pageable pageable) {
+		Page<LogEnvio> logEnvios = repositorioLogEnvio.findByPrestador_idAndStatusAndDataEnvioOrderByIdDesc(usuarioLogado.getPrestador().getId(), status ,data, pageable);
 		return logEnvios;
+	}
+	
+	@Override
+	public Page<LogEnvio> listagemOrdenadaDoPrestador(Usuario usuarioLogado, String data, Pageable pageable) {
+		Page<LogEnvio> logEnvios = repositorioLogEnvio.findByPrestador_idAndDataEnvioOrderByIdDesc(usuarioLogado.getPrestador().getId(),data, pageable);
+		return logEnvios;
+	}
+
+	@Override
+	public LogEnvio pequisarPorId(Integer id) {
+		return repositorioLogEnvio.findOne(id);
 	}
 
 }

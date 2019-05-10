@@ -11,17 +11,28 @@
 <br>
 <section>
 	<div class="form-row">
-		<div class="input-group col-md-3">
-			<input type="date" class="form-control" aria-describedby="btn_data" name="data">
-			<div class="input-group-append">
-				<button type="submit" class="btn btn-info" id="btn_data">Pesquisar</button>
-			 </div>
+		<div class="form-group col-md-4">
+			<label>Status do Log</label>
+			<select class="form-control form-control-sm" id="statusLog" name="statusLog">
+				<option value="T">Todos</option>
+				<option value="E">Enviado com sucesso</option>
+				<option value="ER">Enviado com erro</option>
+			</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label>Data de Envio</label>
+			<div class="input-group">
+				<input type="date" class="form-control" aria-describedby="btn_data" id="data" name="data">
+				<div class="input-group-append">
+					<button  class="btn btn-info" id="btn_data" onclick="pesquisar()">Pesquisar</button>
+				 </div>
+			</div>
 		</div>
 	</div>
 </section>
 <br><br>
 <section class="justify-content-center text-center">
-	<table class="table table-sm table-striped table-borderless table-hover" id="logsEnvio">
+	<table class="table table-sm table-striped table-borderless table-hover" id="tabelaLogsEnvio">
 		<thead>
 			<tr>
 				<th>Status</th>
@@ -31,23 +42,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${logsEnvio}" var="logEnvio" varStatus="i">
-				<tr>
-					<td>${logEnvio.status}</td>
-					<td>${logEnvio.resultado.nrExecucaoOperadora} - ${logEnvio.resultado.nrCartaoBeneficiario}</td>
-					<td>${logEnvio.usuario.nome}</td>
-					<td>
-						<c:if test="${logEnvio.status eq 'ER'}">
-							<button type="button" class="btn btn-sm btn-warning" onclick="abrirModalResposta('${logEnvio.getRespostaReplace()}')"> <i class="fas fa-exclamation-triangle"></i></button>
-						</c:if> 
-						<c:if test="${logEnvio.status eq 'E'}">
-							<button type="button" class="btn btn-sm btn-success" onclick="abrirModalResposta('${logEnvio.getRespostaReplace()}')"> <i class="fas fa-check-square"></i></button>
-						</c:if>
-					</td>
-				</tr>
-			</c:forEach>
 		</tbody>
 	</table>
+	<nav>
+		<ul class="pagination justify-content-end" id="paginacao"></ul>
+	</nav>
 </section>
 <a href="/uniresultado/home" class="btn  btn-outline-secondary">Página Inicial</a>
 <br><br><br>

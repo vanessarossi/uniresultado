@@ -27,6 +27,7 @@ public interface ResultadoService {
 	public Page<Resultado> listarErroValidacaoPorPrestador(Usuario usuarioLogado, Pageable pageable);
 	public Page<Resultado> listarPendenteEnvioPorPrestador(Usuario usuarioLogado, Pageable pageable);
 	public Page<Resultado> listarPorPrestador(Usuario usuarioLogado, Pageable pageable);
+	public Page<Resultado> listarPorPrestadorEStatus(Usuario usuarioLogado, String status, Pageable pageable);
 	
 	public String retornaCaminho();
 

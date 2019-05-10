@@ -54,6 +54,10 @@ public class ResultadoController {
 	
 	@GetMapping("/pesquisa")
 	public @ResponseBody Page<Resultado> pesquisaPaginacao(
+			@RequestParam(
+	            		value = "status",
+	                    required = false,
+	                    defaultValue = "") String status,
             @RequestParam(
             		value = "page",
                     required = false,
@@ -65,7 +69,15 @@ public class ResultadoController {
             		Principal principal) {
 		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		return resultadoService.listarPorPrestador(usuarioLogado, pageRequest);
+		
+		
+		Page<Resultado> resultados;
+		if(status.equals("T")) {
+			resultados = resultadoService.listarPorPrestador(usuarioLogado, pageRequest);
+		}else {
+			resultados = resultadoService.listarPorPrestadorEStatus(usuarioLogado, status, pageRequest);
+		}
+		return resultados;
 	}
 	
 	@RequestMapping("/conferencia")
@@ -134,6 +146,13 @@ public class ResultadoController {
 		}
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
 		resultadoService.salvar(resultado,usuarioLogado, arquivo);
+		return "redirect:/resultado/conferencia";
+	}
+	
+	@RequestMapping(value = "/validar")
+	public String validar(RedirectAttributes redirect, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		resultadoService.validarResultados(usuarioLogado);
 		return "redirect:/resultado/conferencia";
 	}
 	

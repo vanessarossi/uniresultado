@@ -8,6 +8,21 @@
 	<h1 class="h1">Lista de Resultados e Laudos</h1>
 </section>
 <br>
+<section>
+	<div class="form-row">
+		<div class="form-group col-md-4">
+			<label>Status do Log</label>
+			<select class="form-control form-control-sm" id="statusResultado" name="statusResultado">
+				<option value="T">Todos</option>
+				<option value="E">Enviado com sucesso</option>
+				<option value="ER">Enviado com erro</option>
+				<option value="EV">Erro de validação</option>
+				<option value="P">Pendente para envio</option>
+				<option value="C">Cancelado</option>
+			</select>
+		</div>
+	</div>
+</section>
 <section class="justify-content-center text-center">
 	<table class="table table-sm table-striped table-borderless table-hover" id="tabelaResultados">
 		<thead>
@@ -17,6 +32,7 @@
 				<th>Tipo</th>
 				<th>Data</th>
 				<th>Status</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody></tbody>

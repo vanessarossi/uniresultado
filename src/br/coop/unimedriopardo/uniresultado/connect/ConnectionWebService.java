@@ -117,7 +117,7 @@ public class ConnectionWebService {
 	
 	public LogEnvio montarLogEnvio(Usuario usuarioLogado, Resultado resultado, Boolean status, StringBuilder resposta) {
 		LogEnvio logEnvio = new LogEnvio();
-		logEnvio.setData(new Date());
+		logEnvio.setDataEnvio(new ConversorDeData().formatar(new Date(),"dd/MM/YY").toString());
 		logEnvio.setPrestador(usuarioLogado.getPrestador());
 		logEnvio.setResultado(resultado);
 		logEnvio.setUsuario(usuarioLogado);
