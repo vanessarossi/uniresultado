@@ -66,26 +66,17 @@ public class ResultadoServiceImpl implements ResultadoService {
 		return repositorioResultado.findOne(id);
 	}
 
-	@Override
-	public Page<Resultado> listarPendentePorPrestador(Usuario usuarioLogado, Pageable pageable) {
-		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"P", pageable);
-	}
 
 	@Override
 	public void cancelar(Integer id) {
 		Resultado resultado = repositorioResultado.findOne(id);
-		if(resultado.getNrExecucaoOperadora().equals("")) {
-			resultado.setNrExecucaoOperadora("nao informado");
-		}if(resultado.getNrCartaoBeneficiario().equals("")) {
-			resultado.setNrCartaoBeneficiario("nao informado");
-		}
 		resultado.setStatus("C");
 		resultado.setDataCancelamento(new Date());
 		repositorioResultado.save(resultado);
 	}
 
 	@Override
-	public void enviarExamesSelecionados(List<Resultado> resultados) {
+	public void enviarResultadosSelecionado(List<Resultado> resultados) {
 	}
 
 	@Override
@@ -111,6 +102,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 		}
 	}
 
+	@Override
 	public void converterResultadoEmPDF(Integer id) {
 		Resultado resultado = repositorioResultado.findOne(id);
 		FileOutputStream fileOutputStream = null;
@@ -129,9 +121,30 @@ public class ResultadoServiceImpl implements ResultadoService {
 	public String retornaCaminho() {
 		return new Impressao().caminho();
 	}
+	
+	@Override
+	public void validarResultados(Usuario usuarioLogado) {
+		
+	}
 
+	
+	@Override
+	public Page<Resultado> listarImportadosPorPrestador(Usuario usuarioLogado, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"I", pageable);
+	}
+	
 	@Override
 	public Page<Resultado> listarPorPrestador(Usuario usuarioLogado, Pageable pageable) {
 		return repositorioResultado.findByPrestador_idOrderByIdDesc(usuarioLogado.getPrestador().getId(), pageable);
+	}
+
+	@Override
+	public Page<Resultado> listarPendenteEnvioPorPrestador(Usuario usuarioLogado, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"P", pageable);
+	}
+
+	@Override
+	public Page<Resultado> listarErroValidacaoPorPrestador(Usuario usuarioLogado, Pageable pageable) {
+		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "EV", pageable);
 	}
 }

@@ -9,18 +9,16 @@
 	<h1 class="h1">Logs de Envio</h1>
 </section>
 <br>
-<form:form action="/uniresultado/logEnvio/pesquisar" method="post" modelAttribute="">
-	<section>
-		<div class="form-row">
-			<div class="input-group col-md-3">
-			  <input type="date" class="form-control" aria-describedby="btn_data" name="data">
-			  <div class="input-group-append">
-			    <button type="submit" class="btn btn-info" id="btn_data">Pesquisar</button>
-			  </div>
-			</div>
+<section>
+	<div class="form-row">
+		<div class="input-group col-md-3">
+			<input type="date" class="form-control" aria-describedby="btn_data" name="data">
+			<div class="input-group-append">
+				<button type="submit" class="btn btn-info" id="btn_data">Pesquisar</button>
+			 </div>
 		</div>
-	</section>
-</form:form>
+	</div>
+</section>
 <br><br>
 <section class="justify-content-center text-center">
 	<table class="table table-sm table-striped table-borderless table-hover" id="logsEnvio">
@@ -71,14 +69,5 @@
     </div>
   </div>
 </div>
-<script>
-$('#logsEnvio').DataTable( {
-    "ordering": false,
-    "info":     false
-} );
-
-function abrirModalResposta(resposta) {
-	$("#resposta").text(resposta);
-	$("#modalRespostaLog").modal('show');
-}
-</script>
+<spring:url value="/resources/js/lista_log_envio.js" var="listaLogEnvioJS"></spring:url>
+<script type="text/javascript" src="${listaLogEnvioJS}"></script>

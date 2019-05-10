@@ -14,12 +14,20 @@ public interface ResultadoService {
 	
 	public Resultado salvar(Resultado resultado,Usuario usuario, MultipartFile anexo);
 	public Resultado pesquisaPorId(Integer id);
+	
 	public void cancelar(Integer id);
-	public Page<Resultado> listarPendentePorPrestador(Usuario usuarioLogado, Pageable pageable);
-	public Page<Resultado> listarPorPrestador(Usuario usuarioLogado, Pageable pageable);
-	public void enviarExamesSelecionados(List<Resultado> resultados);
+	
+	public void validarResultados(Usuario usuarioLogado);
 	public void enviarExamesPendente(Usuario usuarioLogado);
+	public void enviarResultadosSelecionado(List<Resultado> resultados);
+	
 	public void converterResultadoEmPDF(Integer id);
+	
+	public Page<Resultado> listarImportadosPorPrestador(Usuario usuarioLogado, Pageable pageable);
+	public Page<Resultado> listarErroValidacaoPorPrestador(Usuario usuarioLogado, Pageable pageable);
+	public Page<Resultado> listarPendenteEnvioPorPrestador(Usuario usuarioLogado, Pageable pageable);
+	public Page<Resultado> listarPorPrestador(Usuario usuarioLogado, Pageable pageable);
+	
 	public String retornaCaminho();
 
 }

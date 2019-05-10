@@ -21,6 +21,9 @@
 		</thead>
 		<tbody></tbody>
 	</table>
+	<nav>
+		<ul class="pagination justify-content-end" id="paginacao"></ul>
+	</nav>
 </section>
 
 <a href="/uniresultado/resultado/enviar/todos" class="btn  btn-info">Enviar todos</a>

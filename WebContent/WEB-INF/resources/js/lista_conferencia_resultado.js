@@ -1,36 +1,79 @@
-$(document).ready(function(){
-	$.ajax({
-		url : '/uniresultado/resultado/pesquisa/conferencia',
-		type : 'get',
-		beforeSend : function(){
+var totalPaginas;
+var totalElementos;
+var numero = 0;
+var url;
+var opcao;
 
-		}
+$(document).ready(function(){
+	opcao = $("#tipoConferencia option:selected" ).val();
+	url = retornaUrl(opcao);
+	pesquisarPagina(url, numero);
+});
+
+
+$( "#tipoConferencia" ).change(function() {
+  	opcao = $("#tipoConferencia option:selected" ).val();
+	url = retornaUrl(opcao);
+	pesquisarPagina(url, numero);
+});
+
+
+function pesquisarPagina(url, numeroPagina) {
+	if(url === null){
+		url = retornaUrl(opcao);
+	}
+	$.ajax({
+		url : url,
+		type : 'get',
+		data: {page : numeroPagina},
+		beforeSend : function(){}
 	})
 	.done(function(response){
-		
 		var listaResultados = response["content"];
-		var totalElementos = response["totalElements"];
-		var totalPaginas = response["totalPages"];
-		var tamanho = response["size"];
-		var numero = response["number"];
+		totalPaginas = response["totalPages"];
+		totalElementos = response["totalElements"];
+		numero = response["number"];
+		
 
-		for (var i = listaResultados.length - 1; i >= 0; i--) {
-			var row = "<tr>";
-		        row += "<td>"+ listaResultados[i]["nrCartaoBeneficiario"] +"</td>";
-		        row += "<td>"+ listaResultados[i]["nrExecucaoOperadora"] +"</td>";
-		        row += "<td>"+ listaResultados[i]["tipoOperacao"] +"</td>";
-		        row += "<td>"+ listaResultados[i]["status"] +"</td>";
-		        row += "<td>"+ listaResultados[i]["data"] +"</td>";
-		        row += "<td>"+ '<a href="/uniresultado/resultado/alterar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
-		        row += "<td>"+ '<a href="/uniresultado/resultado/excluir/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>' +"</td>";
-				row += "</tr>";
-
-				$("#tabelaConferenciaResultado").append(row);
-		}
-
+		montarTabela(listaResultados);
+		montarPaginacao(totalPaginas, numero);
 	})
 	.fail(function(jqXHR, textStatus, msg){
-		
 	});
+}
 
-});
+function montarTabela(listaResultados) {
+	$('#tabelaConferenciaResultado > tbody > tr').remove();
+	for (var i = 0; i < listaResultados.length; i++) {
+		var row = "<tr>";
+		    row += "<td>"+ listaResultados[i]["nrCartaoBeneficiario"] +"</td>";
+		    row += "<td>"+ listaResultados[i]["nrExecucaoOperadora"] +"</td>";
+		    row += "<td>"+ listaResultados[i]["tipoOperacao"] +"</td>";
+		    row += "<td>"+ listaResultados[i]["data"] +"</td>";
+		    row += "<td>"+ '<a href="/uniresultado/resultado/alterar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a>' +"</td>";
+		    row += "<td>"+ '<a href="/uniresultado/resultado/excluir/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>' +"</td>";
+			row += "</tr>";
+		$('#tabelaConferenciaResultado').append(row);
+	}
+}
+
+function montarPaginacao(totalPaginas, numero) {
+	$('#paginacao > li ').remove();
+	var liInicial = "<li class='page-item'><a class='page-link' href='#' onclick='pesquisarPagina(null,"+0+")'>Primeira</a></li>";
+	$("#paginacao").append(liInicial);
+	for (var i = 0; i < totalPaginas; i++) {
+		var active = numero === i ? 'active' : '';
+		var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina(null,"+i+")'>"+(parseInt(i)+1)+"</a></li>";
+		$('#paginacao').append(li);
+	}
+	var liFinal = "<li class='page-item'><a class='page-link' href='#' onclick='pesquisarPagina(null,"+(parseInt(totalPaginas) -1)+")'>Último</a></li>";
+	$("#paginacao").append(liFinal);
+}
+
+function retornaUrl(opcao) {
+	if (opcao === 'I') {
+		return '/uniresultado/resultado/pesquisa/importado';
+	}if(opcao === 'EV'){
+		return '/uniresultado/resultado/pesquisa/errovalidacao';
+	}
+}

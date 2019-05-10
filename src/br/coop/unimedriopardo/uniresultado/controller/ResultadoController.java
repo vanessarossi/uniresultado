@@ -73,8 +73,8 @@ public class ResultadoController {
 		return "resultado.conferencia.tiles";
 	}
 	
-	@GetMapping("/pesquisa/conferencia")
-	public @ResponseBody Page<Resultado> pesquisaConferenciaPaginacao(
+	@GetMapping("/pesquisa/importado")
+	public @ResponseBody Page<Resultado> pesquisaImportado(
             @RequestParam(
             		value = "page",
                     required = false,
@@ -82,11 +82,27 @@ public class ResultadoController {
             @RequestParam(
                     value = "size",
                     required = false,
-                    defaultValue = "10") int size,
+                    defaultValue = "20") int size,
             		Principal principal) {
 		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		return resultadoService.listarPendentePorPrestador(usuarioLogado, pageRequest);
+		return resultadoService.listarImportadosPorPrestador(usuarioLogado, pageRequest);
+	}
+	
+	@GetMapping("/pesquisa/errovalidacao")
+	public @ResponseBody Page<Resultado> pesquisaErroValidacao(
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "20") int size,
+            		Principal principal) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		return resultadoService.listarErroValidacaoPorPrestador(usuarioLogado, pageRequest);
 	}
 	
 	@RequestMapping("/form/envio")
@@ -103,11 +119,11 @@ public class ResultadoController {
             @RequestParam(
                     value = "size",
                     required = false,
-                    defaultValue = "10") int size,
+                    defaultValue = "20") int size,
             		Principal principal) {
 		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
-		return resultadoService.listarPendentePorPrestador(usuarioLogado, pageRequest);
+		return resultadoService.listarPendenteEnvioPorPrestador(usuarioLogado, pageRequest);
 	}
 	
 	@RequestMapping(value = "/salvar", method = RequestMethod.POST)
@@ -144,7 +160,7 @@ public class ResultadoController {
 
 	@RequestMapping(value = "/enviar/selecionados", method = RequestMethod.POST)
 	public String salvar(List<Resultado> resultados, RedirectAttributes redirect) {
-		resultadoService.enviarExamesSelecionados(resultados);
+		resultadoService.enviarResultadosSelecionado(resultados);
 		return "redirect:/logEnvio/listagem";
 	}
 

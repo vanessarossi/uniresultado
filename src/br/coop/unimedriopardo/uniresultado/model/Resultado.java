@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "resultado")
@@ -68,6 +69,7 @@ public class Resultado {
 	@Column(name = "data_cancelamento", columnDefinition = "DATE")
 	private Date dataCancelamento;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<Exame> exames;
 	
@@ -75,6 +77,7 @@ public class Resultado {
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_resultado"))
 	private Prestador prestador;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
 	private List<LogEnvio> logsEnvio;
 
