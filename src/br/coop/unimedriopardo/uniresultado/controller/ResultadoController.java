@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,6 +155,13 @@ public class ResultadoController {
 		return "redirect:/resultado/conferencia";
 	}
 	
+	@RequestMapping(value = "/importar/exames/erroValidacao")
+	public String importarExamesErroImportacao(RedirectAttributes redirect, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		resultadoService.importarExamesErroImportacao(usuarioLogado);
+		return "redirect:/resultado/conferencia";
+	}
+	
 	@RequestMapping(value = "/cancelar/{id}", method = RequestMethod.GET)
 	public String excluir(@ModelAttribute("id") Integer id, Model model) {
 		resultadoService.cancelar(id);
@@ -177,14 +183,15 @@ public class ResultadoController {
 		}
 	}
 
-	@RequestMapping(value = "/enviar/selecionados", method = RequestMethod.POST)
-	public String salvar(List<Resultado> resultados, RedirectAttributes redirect) {
-		resultadoService.enviarResultadosSelecionado(resultados);
+	@RequestMapping(value = "/enviar/parcialmente", method = RequestMethod.GET)
+	public String enviarParcial(RedirectAttributes redirect, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		resultadoService.enviarResultadosLimitados(usuarioLogado);
 		return "redirect:/logEnvio/listagem";
 	}
 
 	@RequestMapping(value = "/enviar/todos", method = RequestMethod.GET)
-	public String salvar(RedirectAttributes redirect, Principal principal) {
+	public String enviarTodos(RedirectAttributes redirect, Principal principal) {
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
 		resultadoService.enviarExamesPendente(usuarioLogado);
 		return "redirect:/logEnvio/listagem";

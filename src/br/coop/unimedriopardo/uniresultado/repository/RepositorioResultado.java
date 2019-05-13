@@ -16,11 +16,11 @@ public interface RepositorioResultado extends JpaRepository<Resultado, Integer> 
 	public Page<Resultado> findByPrestador_idAndStatus(Integer id, String status, Pageable pageable);
 	public Page<Resultado> findByPrestador_idOrderByIdDesc(Integer id, Pageable pageable);
 	
-	@Query(value = "{EXECUTE PROC_LIBERAR_ERRO_VALIDACAO(:prestador_id)}", nativeQuery = true)
-    public void liberarErroValidacao(@Param("prestador_id")Integer prestador_id);
+	@Query(nativeQuery = true, value = "SELECT FN_VOLTAR_IMPORTACAO_EXAMES(:prestador_id) FROM DUAL")
+    public String importarErroValidacao(@Param("prestador_id")Integer prestador_id);
 	
-	@Query(value = "{EXECUTE PROC_VALIDAR_EXAME_PRESTADOR(:prestador_id)}", nativeQuery = true)
-    public void validarExames(@Param("prestador_id")Integer prestador_id);
+	@Query(nativeQuery = true, value = "SELECT FN_VALIDAR_EXAMES(:prestador_id) FROM DUAL")
+    public String validarExames(@Param("prestador_id")Integer prestador_id);
 }
 
 

@@ -24,8 +24,8 @@
 	</nav>
 </section>
 <a href="/uniresultado/resultado/enviar/todos" class="btn btn-info">Enviar todos</a>
-<a href="/uniresultado/resultado/enviar/todos/fracionados" class="btn btn-info">Enviar todos fracionados</button>
+<a href="/uniresultado/resultado/enviar/parcialmente" class="btn btn-info">Enviar parcialmente</a>
 <a href="/uniresultado/home" class="btn  btn-secondary">Página Inicial</a>
-<br>
+<br><br>
 <spring:url value="/resources/js/lista_envio_resultado.js" var="listaEnvioResultadoJS"></spring:url>
 <script type="text/javascript" src="${listaEnvioResultadoJS}"></script>

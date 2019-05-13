@@ -44,7 +44,34 @@ function montarPaginacao(totalPaginas, numero) {
 	$('#paginacao > li ').remove();
 	var liInicial = "<li class='page-item'><a class='page-link' href='#' onclick='pesquisarPagina("+0+")'>Primeira</a></li>";
 	$("#paginacao").append(liInicial);
-	if (totalPaginas != 0) {
+
+	if (totalPaginas > 10) {
+		if (numero <= 5) {
+			for (var i = 0; i <= numero ; i ++) {
+				var active = numero === i ? 'active' : '';
+				var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina("+i+")'>"+(parseInt(i)+1)+"</a></li>";
+				$('#paginacao').append(li);
+			}
+			for (var i = (numero+1); i < 10 ; i++) {
+				var active = numero === i ? 'active' : '';
+				var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina("+i+")'>"+(parseInt(i)+1)+"</a></li>";
+				$('#paginacao').append(li);
+			}
+		}
+		if (numero > 5) {
+			for (var i = (numero - 5); i <= numero ; i ++) {
+				var active = numero === i ? 'active' : '';
+				var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina("+i+")'>"+(parseInt(i)+1)+"</a></li>";
+				$('#paginacao').append(li);
+			}
+			var numeroMaximo = ((numero + 5)  > totalPaginas) ? totalPaginas : (numero + 5);
+			for (var i = (numero+1); i < numeroMaximo ; i++) {
+				var active = numero === i ? 'active' : '';
+				var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina("+i+")'>"+(parseInt(i)+1)+"</a></li>";
+				$('#paginacao').append(li);
+			}
+		}
+	}else{
 		for (var i = 0; i < totalPaginas; i++) {
 			var active = numero === i ? 'active' : '';
 			var li = "<li class='page-item "+active+"'><a class='page-link' href='#' onclick='pesquisarPagina("+i+")'>"+(parseInt(i)+1)+"</a></li>";

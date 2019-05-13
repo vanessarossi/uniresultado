@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,6 @@ public class ResultadoServiceImpl implements ResultadoService {
 		return repositorioResultado.findOne(id);
 	}
 
-
 	@Override
 	public void cancelar(Integer id) {
 		Resultado resultado = repositorioResultado.findOne(id);
@@ -66,7 +66,26 @@ public class ResultadoServiceImpl implements ResultadoService {
 	}
 
 	@Override
-	public void enviarResultadosSelecionado(List<Resultado> resultados) {
+	public void enviarResultadosLimitados(Usuario usuarioLogado) {
+		PageRequest pageRequest = new PageRequest(0, 20);
+		Page<Resultado> resultados = repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "P", pageRequest);
+		List<Resultado> listaResultado = resultados.getContent();
+		ConnectionWebService webService = new ConnectionWebService();
+		for (Resultado resultado : listaResultado) {
+			LogEnvio logEnvio = null;
+			try {
+				logEnvio = webService.enviar(usuarioLogado, resultado);
+				repositorioLogEnvio.save(logEnvio);
+				if (logEnvio.getStatus() != "ER") {
+					resultado.setStatus("E");
+				}else if(logEnvio.getStatus() == "ER") {
+					resultado.setStatus("ER");
+				}
+				repositorioResultado.save(resultado);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -117,7 +136,6 @@ public class ResultadoServiceImpl implements ResultadoService {
 		repositorioResultado.validarExames(usuarioLogado.getPrestador().getId());
 	}
 
-	
 	@Override
 	public Page<Resultado> listarImportadosPorPrestador(Usuario usuarioLogado, Pageable pageable) {
 		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"I", pageable);
@@ -141,5 +159,10 @@ public class ResultadoServiceImpl implements ResultadoService {
 	@Override
 	public Page<Resultado> listarPorPrestadorEStatus(Usuario usuarioLogado, String status, Pageable pageable) {
 		return repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),status, pageable);
+	}
+
+	@Override
+	public void importarExamesErroImportacao(Usuario usuarioLogado) {
+		 repositorioResultado.importarErroValidacao(usuarioLogado.getPrestador().getId());
 	}
 }
