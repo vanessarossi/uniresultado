@@ -2,8 +2,6 @@ package br.coop.unimedriopardo.uniresultado.model;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -70,7 +68,7 @@ public class Resultado {
 	private Date dataCancelamento;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER)
 	private List<Exame> exames;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -78,7 +76,7 @@ public class Resultado {
 	private Prestador prestador;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "resultado", fetch = FetchType.LAZY)
 	private List<LogEnvio> logsEnvio;
 
 	public Integer getId() {

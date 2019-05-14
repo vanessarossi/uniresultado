@@ -133,7 +133,15 @@ public class ResultadoServiceImpl implements ResultadoService {
 	
 	@Override
 	public void validarResultados(Usuario usuarioLogado) {
-		repositorioResultado.validarExames(usuarioLogado.getPrestador().getId());
+		List<Resultado> resultadosImportado = repositorioResultado.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"I");
+		for (Resultado resultado : resultadosImportado) {
+			if (resultado.getExames().size() > 0 ) {
+				resultado.setStatus("P");
+			}else {
+				resultado.setStatus("EV");
+			}
+			repositorioResultado.save(resultado);
+		}
 	}
 
 	@Override
@@ -163,6 +171,6 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public void importarExamesErroImportacao(Usuario usuarioLogado) {
-		 repositorioResultado.importarErroValidacao(usuarioLogado.getPrestador().getId());
+		// repositorioResultado.importarErroValidacao(usuarioLogado.getPrestador().getId());
 	}
 }

@@ -51,7 +51,6 @@ public class Usuario {
 	private String email;
 
 	@NotNull
-	@Length(min = 1, max = 1)
 	@Column(name = "ativo", nullable = false)
 	private Integer ativo;
 
