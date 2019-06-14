@@ -59,11 +59,11 @@ public class Usuario {
 	private String perfil;
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "prestador_id", referencedColumnName="id", foreignKey = @ForeignKey(name = "Fk_prestador_usuario"))
 	private Prestador prestador;
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.MERGE)
 	@JsonIgnore
 	private List<LogEnvio> logsEnvio;
 

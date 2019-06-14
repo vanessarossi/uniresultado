@@ -22,18 +22,18 @@ public class LogEnvio {
 	@Column(name = "status", length = 2, nullable = false)
 	private String status;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "Fk_usuario_log_exame"))
 	private Usuario usuario;
 	
 	@Column(name = "resposta", length = 500, nullable = false)
 	private String resposta;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_log_exame"))
 	private Prestador prestador;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "resultado_id", foreignKey = @ForeignKey(name = "Fk_resultado_log_exame"))
 	private Resultado resultado;
 

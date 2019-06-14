@@ -71,12 +71,12 @@ public class Resultado {
 	@OneToMany(mappedBy = "resultado", fetch = FetchType.EAGER)
 	private List<Exame> exames;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_prestador_resultado"))
 	private Prestador prestador;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "resultado", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "resultado")
 	private List<LogEnvio> logsEnvio;
 
 	public Integer getId() {

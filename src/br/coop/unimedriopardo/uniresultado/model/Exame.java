@@ -39,7 +39,7 @@ public class Exame {
 	@Column(name = "qtde", length = 5, nullable = false)
 	private String qtde;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "resultado_id", foreignKey = @ForeignKey(name = "Fk_resultado_exame"))
 	private Resultado resultado;
 

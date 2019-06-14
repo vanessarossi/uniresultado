@@ -58,11 +58,11 @@ public class Prestador {
 	private String loginWebservice;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "prestador")
 	private List<Usuario> usuarios;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "prestador")
 	private List<Resultado> resultados;
 
 	public Integer getId() {
