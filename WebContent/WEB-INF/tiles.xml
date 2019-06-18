@@ -54,6 +54,10 @@
 		<put-attribute name="title" value="Envio de Resultado"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/resultado/formEnvio.jsp"></put-attribute>
 	</definition>
+	<definition name="resultado.list.migra.tiles" extends="layout.tiles">
+		<put-attribute name="title" value="Lista de Laudos Migrados"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/resultado/listMigra.jsp"></put-attribute>
+	</definition>
 	<!-- Log Envio -->
 		<definition name="logEnvio.list.tiles" extends="layout.tiles">
 		<put-attribute name="title" value="Listagem de Log de Envio"></put-attribute>

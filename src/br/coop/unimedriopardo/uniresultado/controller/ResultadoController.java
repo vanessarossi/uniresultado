@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import br.coop.unimedriopardo.uniresultado.model.MigraLaudo;
 import br.coop.unimedriopardo.uniresultado.model.Resultado;
 import br.coop.unimedriopardo.uniresultado.model.Usuario;
+import br.coop.unimedriopardo.uniresultado.service.MigraLaudoService;
 import br.coop.unimedriopardo.uniresultado.service.ResultadoService;
 import br.coop.unimedriopardo.uniresultado.service.UsuarioService;
 
@@ -33,11 +36,13 @@ public class ResultadoController {
 
 	private final ResultadoService resultadoService;
 	private final UsuarioService usuarioService;
+	private final MigraLaudoService migraLaudoService;
 
 	@Autowired
-	public ResultadoController(ResultadoService resultadoService, UsuarioService usuarioService) {
+	public ResultadoController(ResultadoService resultadoService, UsuarioService usuarioService, MigraLaudoService migraLaudoService) {
 		this.resultadoService = resultadoService;
 		this.usuarioService = usuarioService;
+		this.migraLaudoService = migraLaudoService;
 	}
 
 	@RequestMapping("/formulario")
@@ -50,7 +55,7 @@ public class ResultadoController {
 	public String list(Model model) {
 		return "resultado.list.tiles";
 	}
-	
+		
 	@GetMapping("/pesquisa")
 	public @ResponseBody Page<Resultado> pesquisaPaginacao(
 			@RequestParam(
@@ -78,6 +83,7 @@ public class ResultadoController {
 		}
 		return resultados;
 	}
+
 	
 	@RequestMapping("/conferencia")
 	public String conferencia(Model model) {
@@ -98,6 +104,33 @@ public class ResultadoController {
 		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"data");
 		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
 		return resultadoService.listarImportadosPorPrestador(usuarioLogado, pageRequest);
+	}
+	
+	@RequestMapping("/lista/migraLaudo")
+	public String listaMigraLaudo(Model model) {
+		return "resultado.list.migra.tiles";
+	}
+	
+	@RequestMapping(value = "/excluir/migra/{id}", method = RequestMethod.GET)
+	public String excluirMigra(@ModelAttribute("id") Integer id, Model model) {
+		migraLaudoService.excluirMigra(id);
+		return "redirect:/resultado/lista/migraLaudo";
+	}
+	
+	@GetMapping("/pesquisa/migra")
+	public @ResponseBody Page<MigraLaudo> pesquisaMigra(
+            @RequestParam(
+            		value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "20") int size,
+            		Principal principal) {
+		PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC,"id");
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		return migraLaudoService.listarPorPrestador(usuarioLogado, pageRequest);
 	}
 	
 	@GetMapping("/pesquisa/errovalidacao")
@@ -154,6 +187,14 @@ public class ResultadoController {
 		resultadoService.validarResultados(usuarioLogado);
 		return "redirect:/resultado/conferencia";
 	}
+	
+	@RequestMapping(value = "/validar/migra")
+	public String validarMigra(RedirectAttributes redirect, Principal principal) {
+		Usuario usuarioLogado = usuarioService.pesquisaPorLogin(principal.getName());
+		migraLaudoService.converterMigra(usuarioLogado);;
+		return "redirect:/resultado/lista/migraLaudo";
+	}
+	
 	
 	@RequestMapping(value = "/importar/exames/erroValidacao")
 	public String importarExamesErroImportacao(RedirectAttributes redirect, Principal principal) {
