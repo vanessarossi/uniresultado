@@ -47,7 +47,7 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 		for (MigraLaudo migraLaudo : listaMigra) {
 			try {
 				Resultado resultadoEncontrado = cs.pesquisarInformacoesLaudo(migraLaudo.getAccessionNumber());
-				Exame exame = resultadoEncontrado.getExames().get(1);
+				Exame exame = resultadoEncontrado.getExames().get(0);
 				exame.setCodigoExame(exame.getCodigoExame().replace(".","").replace("-", ""));
 				if (resultadoEncontrado != null) {
 					Resultado resultado = new Resultado();
@@ -61,9 +61,11 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 					resultado.setFormatoArquivo("pdf");
 					resultado = repositorioResultado.save(resultado);
 					
+					resultado = repositorioResultado.findById(resultado.getId()).orElse(new Resultado());
+					
 					List<Exame> examesDoJob =  resultado.getExames();
 					for (Exame ex : examesDoJob) {
-						if (ex.getCodigoExame() != exame.getCodigoExame()) {
+						if (! ex.getCodigoExame().equals(exame.getCodigoExame())) {
 							repositorioExame.delete(ex);
 						}
 					}
@@ -77,6 +79,6 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 
 	@Override
 	public void excluirMigra(Integer id) {
-		repositorioMigraLaudo.delete(id);
+		repositorioMigraLaudo.deleteById(id);
 	}
 }

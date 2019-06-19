@@ -35,7 +35,7 @@ public class LogEnvioServiceImpl implements LogEnvioService {
 
 	@Override
 	public LogEnvio pequisarPorId(Integer id) {
-		return repositorioLogEnvio.findOne(id);
+		return repositorioLogEnvio.findById(id).orElse(new LogEnvio());
 	}
 
 }

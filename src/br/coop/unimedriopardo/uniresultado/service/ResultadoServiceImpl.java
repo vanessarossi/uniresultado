@@ -54,12 +54,12 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public Resultado pesquisaPorId(Integer id) {
-		return repositorioResultado.findOne(id);
+		return repositorioResultado.findById(id).orElse(new Resultado());
 	}
 
 	@Override
 	public void cancelar(Integer id) {
-		Resultado resultado = repositorioResultado.findOne(id);
+		Resultado resultado = repositorioResultado.findById(id).orElse(new Resultado());
 		resultado.setStatus("C");
 		resultado.setDataCancelamento(new Date());
 		repositorioResultado.save(resultado);
@@ -113,7 +113,7 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public void converterResultadoEmPDF(Integer id) {
-		Resultado resultado = repositorioResultado.findOne(id);
+		Resultado resultado = repositorioResultado.findById(id).orElse(new Resultado());
 		FileOutputStream fileOutputStream = null;
 		File pasta = new Impressao().criarPasta();
 		File file = new File(pasta,id.toString()+".pdf");

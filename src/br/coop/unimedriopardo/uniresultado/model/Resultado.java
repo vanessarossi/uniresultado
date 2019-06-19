@@ -19,6 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -59,10 +61,12 @@ public class Resultado {
 	@Column(name = "status", length = 1, nullable = false)
 	private String status;
 	
+	@JsonFormat(pattern="dd-MM-yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data", columnDefinition = "DATE")
 	private Date data;
 	
+	@JsonFormat(pattern="dd-MM-yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cancelamento", columnDefinition = "DATE")
 	private Date dataCancelamento;

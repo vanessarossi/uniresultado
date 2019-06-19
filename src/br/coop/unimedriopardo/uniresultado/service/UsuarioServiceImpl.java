@@ -1,7 +1,6 @@
 package br.coop.unimedriopardo.uniresultado.service;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,12 +38,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public Usuario pesquisaPorId(Integer id) {
-		return repositorioUsuario.findOne(id);
+		return repositorioUsuario.findById(id).orElse(new Usuario());
 	}
 
 	@Override
 	public void deletar(Integer id) {
-		repositorioUsuario.delete(id);
+		repositorioUsuario.deleteById(id);
 	}
 
 	@Override

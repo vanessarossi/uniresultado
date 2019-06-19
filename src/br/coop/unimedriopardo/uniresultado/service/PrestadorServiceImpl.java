@@ -36,12 +36,12 @@ public class PrestadorServiceImpl implements PrestadorService {
 
 	@Override
 	public Prestador pesquisaPorId(Integer id) {
-		return repositorioPrestador.findOne(id);
+		return repositorioPrestador.findById(id).orElse(new Prestador());
 	}
 
 	@Override
 	public void deletar(Integer id) {
-		repositorioPrestador.delete(id);
+		repositorioPrestador.deleteById(id);
 	}
 
 	@Override
