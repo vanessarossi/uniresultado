@@ -36,13 +36,13 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 
 	@Override
 	public Page<MigraLaudo> listarPorPrestador(Usuario usuarioLogado, Pageable pageable) {
-		Page<MigraLaudo> listaMigraLaudo = repositorioMigraLaudo.findByPrestador_id(usuarioLogado.getPrestador().getId(), pageable);
+		Page<MigraLaudo> listaMigraLaudo = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"V", pageable);
 		return listaMigraLaudo;
 	}
 
 	@Override
 	public void converterMigra(Usuario usuarioLogado) {
-		List<MigraLaudo> listaMigra = repositorioMigraLaudo.findByPrestador_id(usuarioLogado.getPrestador().getId());
+		List<MigraLaudo> listaMigra = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "V");
 		ConnectionCS cs = new ConnectionCS();
 		for (MigraLaudo migraLaudo : listaMigra) {
 			try {
@@ -64,12 +64,22 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 					resultado = repositorioResultado.findById(resultado.getId()).orElse(new Resultado());
 					
 					List<Exame> examesDoJob =  resultado.getExames();
-					for (Exame ex : examesDoJob) {
-						if (! ex.getCodigoExame().equals(exame.getCodigoExame())) {
-							repositorioExame.delete(ex);
+					if (examesDoJob != null && examesDoJob.size() > 0) {
+						for (Exame ex : examesDoJob) {
+							if (! ex.getCodigoExame().equals(exame.getCodigoExame())) {
+								repositorioExame.delete(ex);
+							}
 						}
-					}
-					repositorioMigraLaudo.delete(migraLaudo);
+					}else {
+						Exame ex  = new Exame();
+						ex.setCodigoExame(exame.getCodigoExame());
+						ex.setCodigoTabela("22");
+						ex.setQtde("1");
+						ex.setResultado(resultado);
+						repositorioExame.save(ex);
+					}	
+					migraLaudo.setStatus("V");
+					repositorioMigraLaudo.save(migraLaudo);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

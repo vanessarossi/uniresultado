@@ -9,7 +9,7 @@ import br.coop.unimedriopardo.uniresultado.model.MigraLaudo;
 
 public interface RepositorioMigraLaudo extends JpaRepository<MigraLaudo, Integer>{
 	
-	public Page<MigraLaudo> findByPrestador_id(Integer prestadorId, Pageable pageable);
-	public List<MigraLaudo> findByPrestador_id(Integer prestadorId);
+	public Page<MigraLaudo> findByPrestador_idAndStatus(Integer prestadorId, String status, Pageable pageable);
+	public List<MigraLaudo> findByPrestador_idAndStatus(Integer prestadorId, String status);
 	
 }

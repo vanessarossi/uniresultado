@@ -27,12 +27,14 @@ public class MigraLaudo {
 	@Lob
 	@Column(name = "arquivo" ,nullable=true)
 	private String arquivo;
+	
+	@Column(name="status", nullable = true)
+	private String status;
 		
 	@ManyToOne
 	@JoinColumn(name = "prestador_id", foreignKey = @ForeignKey(name = "Fk_migraLaudo_prestador"))
 	private Prestador prestador;
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -57,6 +59,14 @@ public class MigraLaudo {
 		this.arquivo = arquivo;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Prestador getPrestador() {
 		return prestador;
 	}
@@ -64,5 +74,5 @@ public class MigraLaudo {
 	public void setPrestador(Prestador prestador) {
 		this.prestador = prestador;
 	}
-	
+
 }
