@@ -36,13 +36,13 @@ public class MigraLaudoServiceImpl implements MigraLaudoService{
 
 	@Override
 	public Page<MigraLaudo> listarPorPrestador(Usuario usuarioLogado, Pageable pageable) {
-		Page<MigraLaudo> listaMigraLaudo = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"V", pageable);
+		Page<MigraLaudo> listaMigraLaudo = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"",pageable);
 		return listaMigraLaudo;
 	}
 
 	@Override
 	public void converterMigra(Usuario usuarioLogado) {
-		List<MigraLaudo> listaMigra = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(), "V");
+		List<MigraLaudo> listaMigra = repositorioMigraLaudo.findByPrestador_idAndStatus(usuarioLogado.getPrestador().getId(),"");
 		ConnectionCS cs = new ConnectionCS();
 		for (MigraLaudo migraLaudo : listaMigra) {
 			try {
