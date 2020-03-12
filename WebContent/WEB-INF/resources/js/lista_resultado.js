@@ -21,7 +21,7 @@ function pesquisarPagina(numeroPagina) {
 		beforeSend : function(){}
 	})
 	.done(function(response){
-		var listaResultados = response["content"];vanes
+		var listaResultados = response["content"];
 		totalPaginas = response["totalPages"];
 		totalElementos = response["totalElements"];
 		numero = response["number"];
