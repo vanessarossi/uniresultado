@@ -11,22 +11,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId> <!-- trata o contexto da aplicação -->
-			<version>5.0.2.RELEASE</version>
+			<version>5.0.16.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId> <!-- programação orientada a aspecto -->
-			<version>5.0.2.RELEASE</version>
+			<version>5.0.16.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId> <!-- para usar o spring mvc -->
-			<version>5.0.2.RELEASE</version>
+			<version>5.0.16.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId><!-- para usar uma aplicação web, não necessariamente mvc -->
-			<version>5.0.2.RELEASE</version>
+			<version>5.0.16.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
