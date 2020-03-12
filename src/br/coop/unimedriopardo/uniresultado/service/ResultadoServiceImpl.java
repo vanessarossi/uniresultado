@@ -38,15 +38,17 @@ public class ResultadoServiceImpl implements ResultadoService {
 
 	@Override
 	public Resultado salvar(Resultado resultado, Usuario usuario, MultipartFile anexo) {
-		String anexoConvertido = null;
-		
-		try {
-			anexoConvertido = Base64.encodeBase64String(anexo.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(anexo != null) {
+			String anexoConvertido = null;
+			
+			try {
+				anexoConvertido = Base64.encodeBase64String(anexo.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			resultado.setAnexo(anexoConvertido);
 		}
-		
-		resultado.setAnexo(anexoConvertido);
 		resultado.setData(new Date());
 		resultado.setPrestador(usuario.getPrestador()); 
 		return repositorioResultado.save(resultado);
