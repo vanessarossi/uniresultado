@@ -41,6 +41,29 @@
 		<form:hidden path="status" value="I" />
 		<form:hidden path="id" />
 	</section>
+	
+	<section>
+		<c:if test="${resultado.id != null}">
+			<table class="table table-sm table-striped table-borderless table-hover" id="tabelaResultados">
+				<thead>
+					<tr>
+						<th>Código de Tabela</th>
+						<th>Código de Exame</th>
+						<th>Quantidade</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${resultado.exames}" var="exame">
+						<tr>
+							<td>${exame.codigoTabela}</td>
+							<td>${exame.codigoExame}</td>
+							<td>${exame.qtde}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+	</section>
 	<a href="/uniresultado/resultado/listagem" class="btn btn-primary">Ver resultados cadastrados</a>
 	<a href="/uniresultado/home" class="btn btn-secondary">Página Inicial</a>
 	<button type="submit" id="salvar" class="btn btn-success">Salvar</button>

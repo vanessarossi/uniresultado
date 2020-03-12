@@ -21,7 +21,7 @@ function pesquisarPagina(numeroPagina) {
 		beforeSend : function(){}
 	})
 	.done(function(response){
-		var listaResultados = response["content"];
+		var listaResultados = response["content"];vanes
 		totalPaginas = response["totalPages"];
 		totalElementos = response["totalElements"];
 		numero = response["number"];
@@ -35,12 +35,14 @@ function pesquisarPagina(numeroPagina) {
 function montarTabela(listaResultados) {
 	$('#tabelaResultados > tbody > tr').remove();
 	for (var i = 0; i < listaResultados.length; i++) {
-		var btn = '';
+		var btnCancelar = '';
 		if (listaResultados[i]["status"] != 'E' || listaResultados[i]["status"] != 'ER') {
-			btn = '<a href="/uniresultado/resultado/cancelar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-window-close"></i></a>' +"</td>";
+			btnCancelar = '<a href="/uniresultado/resultado/cancelar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-danger"><i class="fas fa-window-close"></i></a>';
 		}else{
-			btn = '';
+			btnCancelar = '';
 		}
+
+	var btnEditar  = '<a href="/uniresultado/resultado/editar/'+listaResultados[i]["id"]+'" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></a>';	
 
 		var row = "<tr>";
 		    row += "<td>"+ listaResultados[i]["nrCartaoBeneficiario"] +"</td>";
@@ -48,7 +50,8 @@ function montarTabela(listaResultados) {
 		    row += "<td>"+ listaResultados[i]["tipoOperacao"] +"</td>";
 		    row += "<td>"+ listaResultados[i]["data"] +"</td>";
 		    row += "<td>"+ listaResultados[i]["status"] +"</td>";
-		    row += "<td>"+ btn +"</td>";
+		    row += "<td>"+ btnEditar +"</td>";
+		    row += "<td>"+ btnCancelar +"</td>";
 			row += "</tr>";
 		$('#tabelaResultados').append(row);
 	}

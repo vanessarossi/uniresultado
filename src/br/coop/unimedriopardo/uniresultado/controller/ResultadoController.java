@@ -55,7 +55,7 @@ public class ResultadoController {
 	public String list(Model model) {
 		return "resultado.list.tiles";
 	}
-		
+			
 	@GetMapping("/pesquisa")
 	public @ResponseBody Page<Resultado> pesquisaPaginacao(
 			@RequestParam(
@@ -81,10 +81,10 @@ public class ResultadoController {
 		}else {
 			resultados = resultadoService.listarPorPrestadorEStatus(usuarioLogado, status, pageRequest);
 		}
+		
 		return resultados;
 	}
 
-	
 	@RequestMapping("/conferencia")
 	public String conferencia(Model model) {
 		return "resultado.conferencia.tiles";
@@ -208,7 +208,13 @@ public class ResultadoController {
 		resultadoService.cancelar(id);
 		return "redirect:/resultado/conferencia";
 	}
-
+	
+	@RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
+	public String editar(@ModelAttribute("id") Integer id, Model model) {
+		model.addAttribute("resultado",resultadoService.pesquisaPorId(id));
+		return "resultado.form.tiles";
+	}
+	
 	@RequestMapping(value = "/arquivo/{id}", method = RequestMethod.GET)
 	public void verArquivo(HttpServletResponse response, @ModelAttribute("id") Integer id, Model model) {
 		Path arquivo = Paths.get(resultadoService.retornaCaminho(), id + ".pdf");
