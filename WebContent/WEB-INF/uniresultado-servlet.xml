@@ -42,7 +42,7 @@
 	<!-- Spring data -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@192.168.0.243:1521:DBPRD1"></property>
+		<property name="url" value="jdbc:oracle:thin:@186.200.53.252:1521:DBPRD1"></property>
 		<property name="username" value="integraresultado"></property>
 		<property name="password" value="INT#2122"></property>
 	</bean>
